@@ -11,6 +11,10 @@ import { AuthGuard } from './shared';
 
 // Angular fire
 import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireFunctionsModule } from '@angular/fire/functions';
 import { environment } from '../environments/environment';
 
 @NgModule({
@@ -20,6 +24,10 @@ import { environment } from '../environments/environment';
         BrowserAnimationsModule,
         HttpClientModule,
         AngularFireModule.initializeApp(environment.firebase),
+        AngularFireAuthModule, // Firebase authentication
+        AngularFirestoreModule, // Firebase firestore
+        AngularFireStorageModule, // Firebase storage
+        AngularFireFunctionsModule, // Firebase functions
         LanguageTranslationModule,
         AppRoutingModule
     ],

@@ -7,15 +7,9 @@ import { LayoutRoutingModule } from './layout-routing.module';
 import { LayoutComponent } from './layout.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { HeaderComponent } from './components/header/header.component';
-import { ProjectEditComponent } from './project/project-edit/project-edit.component';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        LayoutRoutingModule,
-        TranslateModule,
-        NgbDropdownModule
-    ],
-    declarations: [LayoutComponent, SidebarComponent, HeaderComponent, ProjectEditComponent]
+    imports: [CommonModule, LayoutRoutingModule, TranslateModule, NgbDropdownModule],
+    declarations: [LayoutComponent, SidebarComponent, HeaderComponent]
 })
 export class LayoutModule {}

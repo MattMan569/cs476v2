@@ -23,7 +23,7 @@
                 </div>
             </div>
         </div>
-        <hr>
+        <hr />
         <p class="mb-2">You can easily control dropdowns programmatically using the exported dropdown instance.</p>
         <div class="d-inline-block dropdown" ngbDropdown #myDrop="ngbDropdown">
             <button class="btn btn-outline-primary" ngbDropdownToggle>Toggle dropdown</button>
@@ -33,11 +33,12 @@
                 <button class="dropdown-item">Something else is here</button>
             </div>
         </div>
+        <!-- NOTE: bugged, don't use -->
         <div class="d-inline-block dropdown" ngbDropdown #myDrop="ngbDropdown">
-            <button class="btn btn-outline-success" (click)="$event.stopPropagation(); myDrop.open();">Open from outside</button>
+            <button class="btn btn-outline-success" (click)="$event.stopPropagation(); myDrop.open()">Open from outside</button>
         </div>
         <div class="d-inline-block dropdown" ngbDropdown #myDrop="ngbDropdown">
-            <button class="btn btn-outline-danger" (click)="$event.stopPropagation(); myDrop.close();">Close from outside</button>
+            <button class="btn btn-outline-danger" (click)="$event.stopPropagation(); myDrop.close()">Close from outside</button>
         </div>
     </div>
 </div>

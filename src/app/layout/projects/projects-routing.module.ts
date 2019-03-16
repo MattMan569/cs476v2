@@ -11,7 +11,7 @@ const routes: Routes = [
         children: [
             { path: '', component: ProjectListComponent }, // Project list
             { path: 'new', component: ProjectEditComponent }, // New project
-            { path: ':id', component: ProjectsComponent }, // Project details
+            { path: ':id', component: ProjectListComponent }, // Project details
             { path: ':id/edit', component: ProjectEditComponent } // Edit project
         ]
     }

@@ -3,14 +3,15 @@
         <div class="col-md-4">
             <img src="assets/images/logo.png" width="150px" class="user-avatar" />
             <h1>Task Tracker</h1>
-            <form role="form">
+            <form (ngSubmit)="onLogIn(f)" #f="ngForm">
                 <div class="form-content">
                     <div class="form-group">
                         <input
-                            type="text"
-                            ng-model="name"
+                            type="email"
+                            id="email"
+                            name="email"
+                            ngModel
                             class="form-control input-underline input-lg"
-                            id="name"
                             placeholder="{{ 'Email' | translate }}"
                         />
                     </div>
@@ -18,13 +19,17 @@
                     <div class="form-group">
                         <input
                             type="password"
-                            class="form-control input-underline input-lg"
                             id="password"
+                            name="password"
+                            ngModel
+                            class="form-control input-underline input-lg"
                             placeholder="{{ 'Password' | translate }}"
                         />
                     </div>
                 </div>
-                <a class="btn rounded-btn" [routerLink]="['/dashboard']" (click)="onLoggedin()">{{ 'Log in' | translate }}</a>
+                <!-- <a class="btn rounded-btn" [routerLink]="['/dashboard']" (click)="onLoggedin()">{{ 'Log in' | translate }}</a> -->
+                <!-- <a class="btn rounded-btn" (click)="onLoggedin()">{{ 'Log in' | translate }}</a> -->
+                <button class="btn rounded-btn" type="submit">Log In</button>
                 &nbsp;
                 <a class="btn rounded-btn" [routerLink]="['/signup']">{{ 'Register' | translate }}</a>
             </form>

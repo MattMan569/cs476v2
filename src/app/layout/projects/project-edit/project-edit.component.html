@@ -1,3 +1,62 @@
 <p>
     project-edit works!
 </p>
+
+<form [formGroup]="getForm()" (ngSubmit)="onSubmit()">
+    <!-- Name -->
+    <fieldset class="form-group">
+        <label for="name">Project Name</label>
+        <input type="text" id="name" formControlName="name" class="form-control" />
+    </fieldset>
+
+    <!-- Description -->
+    <fieldset class="form-group">
+        <label for="description">Project Description</label>
+        <!-- <input type="text" id="description" formControlName="description" class="form-control" /> -->
+        <textarea id="description" formControlName="description" rows="4" class="form-control"></textarea>
+    </fieldset>
+
+    <!-- Due Date -->
+    <fieldset class="form-group no-gutters">
+        <label for="dueDate">Project Due Date</label>
+        <div class="input-group datpicker-input col-3">
+            <input
+                class="form-control"
+                placeholder="yyyy-mm-dd"
+                id="dueDate"
+                formControlName="dueDate"
+                ngbDatepicker
+                #date="ngbDatepicker"
+            />
+            <button class="input-group-addon" (click)="date.toggle()" type="button">
+                <span class="fa fa-calendar"></span>
+            </button>
+        </div>
+    </fieldset>
+
+    <!-- Status -->
+    <fieldset class="form-group no-gutters">
+        <div class="col-3">
+            <label for="status">Initial Status</label>
+            <select id="status" formControlName="status" class="form-control">
+                <option value="inProgress">In Progress</option>
+                <option value="late">Late</option>
+                <option value="critical">Critical</option>
+                <option value="paused">Paused</option>
+                <option value="canceled">Canceled</option>
+            </select>
+        </div>
+    </fieldset>
+
+    <!-- Priority -->
+    <fieldset class="form-group no-gutters">
+        <div class="col-3">
+            <label for="priority">Project Priority</label>
+            <select id="priority" formControlName="priority" class="form-control">
+                <option value="high">High</option>
+                <option value="normal">Normal</option>
+                <option value="low">Low</option>
+            </select>
+        </div>
+    </fieldset>
+</form>

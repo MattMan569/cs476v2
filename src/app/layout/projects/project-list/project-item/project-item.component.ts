@@ -1,15 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Project } from 'src/app/shared';
 
 @Component({
-  selector: 'app-project-item',
-  templateUrl: './project-item.component.html',
-  styleUrls: ['./project-item.component.scss']
+    selector: 'app-project-item',
+    templateUrl: './project-item.component.html',
+    styleUrls: ['./project-item.component.scss']
 })
 export class ProjectItemComponent implements OnInit {
+    @Input() private project: Project;
+    @Input() private index: number;
 
-  constructor() { }
+    constructor() {}
 
-  ngOnInit() {
-  }
+    ngOnInit() {}
 
+    getProject(): Project {
+        return this.project;
+    }
+
+    getIndex(): number {
+        return this.index;
+    }
 }

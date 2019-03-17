@@ -34,8 +34,6 @@ export class ProjectEditComponent implements OnInit {
     }
 
     onSubmit() {
-        console.log(this.projectForm);
-
         let newProject: Project;
         let formDate = '';
 

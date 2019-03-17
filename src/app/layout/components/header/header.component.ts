@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
+import * as firebase from 'firebase';
+
 @Component({
     selector: 'app-header',
     templateUrl: './header.component.html',
@@ -11,13 +13,8 @@ export class HeaderComponent implements OnInit {
     public pushRightClass: string;
 
     constructor(private translate: TranslateService, public router: Router) {
-
         this.router.events.subscribe(val => {
-            if (
-                val instanceof NavigationEnd &&
-                window.innerWidth <= 992 &&
-                this.isToggled()
-            ) {
+            if (val instanceof NavigationEnd && window.innerWidth <= 992 && this.isToggled()) {
                 this.toggleSidebar();
             }
         });
@@ -48,5 +45,9 @@ export class HeaderComponent implements OnInit {
 
     changeLang(language: string) {
         this.translate.use(language);
+    }
+
+    getUserEmail() {
+        return firebase.auth().currentUser.email;
     }
 }

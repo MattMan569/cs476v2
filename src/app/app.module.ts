@@ -25,7 +25,7 @@ import { environment } from '../environments/environment';
         HttpClientModule,
         AngularFireModule.initializeApp(environment.firebase),
         AngularFireAuthModule, // Firebase authentication
-        AngularFirestoreModule, // Firebase firestore
+        AngularFirestoreModule.enablePersistence(), // Firebase firestore
         AngularFireStorageModule, // Firebase storage
         AngularFireFunctionsModule, // Firebase functions
         LanguageTranslationModule,

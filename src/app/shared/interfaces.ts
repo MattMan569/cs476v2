@@ -7,26 +7,26 @@ export interface User {
 }
 
 export interface Project {
-    id: string; // https://stackoverflow.com/a/51403280
+    id: string; // https://stackoverflow.com/a/51403280 (second method)
     name: string;
     description: string;
-    dateCreated: firebase.firestore.Timestamp; // https://firebase.google.com/docs/reference/js/firebase.firestore.Timestamp
-    dateDue: firebase.firestore.Timestamp;
-    dateCompleted: firebase.firestore.Timestamp;
+    dateCreated: number; // Date object timestamp
+    dateDue: number;
+    dateCompleted: number;
     status: statusTypes;
     priority: priorityTypes;
-    manager: number; // uid (creator)
+    manager: string; // uid (creator)
 }
 
 export interface Task {
     id: string;
     projectId: string; // Project -> id
     description: string;
-    dateCreated: firebase.firestore.Timestamp;
-    dateDue: firebase.firestore.Timestamp;
-    dateCompleted: firebase.firestore.Timestamp;
+    dateCreated: number;
+    dateDue: number;
+    dateCompleted: number;
     weight: number;
     status: statusTypes;
-    assignedTo: number; // uid
-    assignedBy: number; // uid
+    assignedTo: string; // uid
+    assignedBy: string; // uid
 }

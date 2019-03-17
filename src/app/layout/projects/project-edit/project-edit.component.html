@@ -18,13 +18,13 @@
 
     <!-- Due Date -->
     <fieldset class="form-group no-gutters">
-        <label for="dueDate">Project Due Date</label>
+        <label for="dateDue">Project Due Date</label>
         <div class="input-group datpicker-input col-3">
             <input
                 class="form-control"
                 placeholder="yyyy-mm-dd"
-                id="dueDate"
-                formControlName="dueDate"
+                id="dateDue"
+                formControlName="dateDue"
                 ngbDatepicker
                 #date="ngbDatepicker"
             />
@@ -39,11 +39,11 @@
         <div class="col-3">
             <label for="status">Initial Status</label>
             <select id="status" formControlName="status" class="form-control">
-                <option value="inProgress">In Progress</option>
-                <option value="late">Late</option>
-                <option value="critical">Critical</option>
-                <option value="paused">Paused</option>
-                <option value="canceled">Canceled</option>
+                <option value="Undefined">Undefined</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Late">Late</option>
+                <option value="Paused">Paused</option>
+                <option value="Canceled">Canceled</option>
             </select>
         </div>
     </fieldset>
@@ -53,10 +53,15 @@
         <div class="col-3">
             <label for="priority">Project Priority</label>
             <select id="priority" formControlName="priority" class="form-control">
-                <option value="high">High</option>
-                <option value="normal">Normal</option>
-                <option value="low">Low</option>
+                <option value="Critical">Critical</option>
+                <option value="High">High</option>
+                <option value="Normal">Normal</option>
+                <option value="Low">Low</option>
             </select>
         </div>
     </fieldset>
+
+    <!-- Submit or navigate back -->
+    <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
+    <button type="submit" class="btn btn-success ml-3">Create Project</button>
 </form>

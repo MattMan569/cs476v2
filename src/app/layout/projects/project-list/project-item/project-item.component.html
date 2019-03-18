@@ -1,9 +1,9 @@
 <a [routerLink]="[getProject().id]">
     <div class="col">
         <div class="card text-white bg-primary mb-3">
-            <div class="card-header">{{ getProject().name }}</div>
+            <div class="card-header">Name: {{ getProject().name }}<br />Manager: {{ getUser().displayName }}</div>
             <div class="card-body">
-                <h4 class="card-title">{{ getProject().manager }}</h4>
+                <h4 class="card-title">{{ getProject().status }}</h4>
                 <p class="card-text">
                     {{ getProject().description }}
                 </p>

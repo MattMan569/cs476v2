@@ -13,11 +13,20 @@ export class AuthService {
     constructor(private afa: AngularFireAuth, private router: Router) {}
 
     // Sign a user up with an email and password
-    signUpUser(email: string, password: string) {
-        firebase
-            .auth()
+    signUpUser(email: string, password: string, displayName: string) {
+        this.afa.auth
             .createUserWithEmailAndPassword(email, password)
+            .then(user => {
+                user.user.updateProfile({ displayName: displayName });
+            })
             .catch(error => console.log(error));
+        // firebase
+        //     .auth()
+        //     .createUserWithEmailAndPassword(email, password)
+        //     // .then(user => {
+        //     //     return user.user.updateProfile({ displayName: displayName });
+        //     // })
+        //     .catch(error => console.log(error));
     }
 
     // Sign a user in with email and password
@@ -54,5 +63,10 @@ export class AuthService {
                 this.router.navigate(['/login']);
             })
             .catch(error => console.log(error));
+    }
+
+    // Get the current user
+    getCurrentUser(): firebase.User {
+        return this.afa.auth.currentUser;
     }
 }

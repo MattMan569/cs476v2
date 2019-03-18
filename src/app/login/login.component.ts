@@ -16,7 +16,6 @@ export class LoginComponent implements OnInit {
 
     ngOnInit() {
         if (localStorage.getItem('userIdToken')) {
-            console.log(localStorage.getItem('userIdToken'));
             this.router.navigate(['/dashboard']);
         }
     }

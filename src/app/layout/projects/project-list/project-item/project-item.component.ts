@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Project } from 'src/app/shared';
+import { Project, AuthService } from 'src/app/shared';
 
 @Component({
     selector: 'app-project-item',
@@ -10,7 +10,7 @@ export class ProjectItemComponent implements OnInit {
     @Input() private project: Project;
     @Input() private index: number;
 
-    constructor() {}
+    constructor(private authService: AuthService) {}
 
     ngOnInit() {}
 
@@ -20,5 +20,9 @@ export class ProjectItemComponent implements OnInit {
 
     getIndex(): number {
         return this.index;
+    }
+
+    getUser(): firebase.User {
+        return this.authService.getCurrentUser();
     }
 }

@@ -1,4 +1,13 @@
-<p>
-    project-item works!
-    {{ getProject().name }}
-</p>
+<a [routerLink]="[getIndex()]">
+    <div class="col">
+        <div class="card text-white bg-primary mb-3">
+            <div class="card-header">{{ getProject().name }}</div>
+            <div class="card-body">
+                <h4 class="card-title">{{ getProject().manager }}</h4>
+                <p class="card-text">
+                    {{ getProject().description }}
+                </p>
+            </div>
+        </div>
+    </div>
+</a>

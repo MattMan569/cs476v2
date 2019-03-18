@@ -5,7 +5,5 @@
 <button type="button" [routerLink]="'new'" class="btn btn-lg btn-primary">New Project</button>
 
 <div class="row">
-    <div class="col">
-        <app-project-item *ngFor="let project of getProjects(); let i = index" [project]="project" [index]="i"></app-project-item>
-    </div>
+    <app-project-item *ngFor="let project of getProjects(); let i = index" [project]="project" [index]="i"></app-project-item>
 </div>

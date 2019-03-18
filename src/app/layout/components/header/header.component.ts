@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
-import * as firebase from 'firebase';
 import { AuthService } from 'src/app/shared';
 import { AngularFireAuth } from '@angular/fire/auth';
 
@@ -56,8 +55,6 @@ export class HeaderComponent implements OnInit {
     }
 
     getUserEmail() {
-        // return firebase.auth().currentUser.email;
-        console.log(this.afa.auth.currentUser);
         if (this.afa.auth.currentUser) {
             return this.afa.auth.currentUser.email;
         }

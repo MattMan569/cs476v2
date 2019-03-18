@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 
 import * as firebase from 'firebase';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -29,17 +28,17 @@ export class AuthService {
                 this.afa.auth
                     .signInWithEmailAndPassword(email, password)
                     .then(response => {
-                        this.afa.auth.currentUser
-                            .getIdToken()
-                            .then((token: string) => {
-                                localStorage.setItem('userIdToken', token);
-                                this.afa.authState.subscribe(auth => {
-                                    this.authState = auth;
-                                    console.log(this.authState);
-                                });
-                                this.router.navigate(['/dashboard']);
-                            })
-                            .catch(error => console.log(error));
+                        this.afa.authState.subscribe(auth => {
+                            this.authState = auth;
+                            console.log(this.authState);
+                            this.afa.auth.currentUser
+                                .getIdToken()
+                                .then((token: string) => {
+                                    localStorage.setItem('userIdToken', token);
+                                    this.router.navigate(['/dashboard']);
+                                })
+                                .catch(error => console.log(error));
+                        });
                     })
                     .catch(error => console.log(error));
             })
@@ -52,8 +51,8 @@ export class AuthService {
             .signOut()
             .then(() => {
                 localStorage.removeItem('userIdToken');
+                this.router.navigate(['/login']);
             })
             .catch(error => console.log(error));
-        this.router.navigate(['/login']);
     }
 }

@@ -11,7 +11,6 @@ import { Observable, Subscription } from 'rxjs';
 })
 export class ProjectListComponent implements OnInit, OnDestroy {
     private projectsCollection: AngularFirestoreCollection<Project>;
-    private projectsObservable: Observable<Project[]>;
     private projectsSubscription: Subscription;
     private projects: Project[];
 
@@ -21,8 +20,7 @@ export class ProjectListComponent implements OnInit, OnDestroy {
         this.projectsCollection = this.afs.collection('projects', ref => {
             return ref.orderBy('dateCreated', 'desc').limit(20);
         });
-        this.projectsObservable = this.projectsCollection.valueChanges();
-        this.projectsSubscription = this.projectsObservable.subscribe((projects: Project[]) => {
+        this.projectsSubscription = this.projectsCollection.valueChanges().subscribe((projects: Project[]) => {
             this.projects = projects;
         });
     }

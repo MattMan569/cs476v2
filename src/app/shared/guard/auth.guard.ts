@@ -11,7 +11,7 @@ export class AuthGuard implements CanActivate {
         //     return true;
         // }
 
-        if (localStorage.getItem('isSignedIn')) {
+        if (localStorage.getItem('userIdToken')) {
             return true;
         }
 

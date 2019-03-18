@@ -3,7 +3,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbDatepicker } from '@ng-bootstrap/ng-bootstrap';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
-import { Project, ProjectService } from 'src/app/shared';
+import { Project } from 'src/app/shared';
+import { ProjectService } from 'src/app/shared/services/project.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({

@@ -1,8 +1,4 @@
-<p>
-    project-list works!
-</p>
-
-<button type="button" [routerLink]="'new'" class="btn btn-lg btn-primary">New Project</button>
+<button type="button" [routerLink]="'new'" class="btn btn-lg btn-success mb-3">New Project</button>
 
 <div class="row">
     <app-project-item *ngFor="let project of getProjects(); let i = index" [project]="project" [index]="i"></app-project-item>

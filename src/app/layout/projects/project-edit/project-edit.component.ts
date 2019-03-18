@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbDatepicker } from '@ng-bootstrap/ng-bootstrap';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
-import { Project } from 'src/app/shared';
+import { Project, ProjectService } from 'src/app/shared';
 import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
@@ -15,7 +15,13 @@ export class ProjectEditComponent implements OnInit {
     private projectForm: FormGroup;
     private projectsCollection: AngularFirestoreCollection<Project>;
 
-    constructor(private afs: AngularFirestore, private afa: AngularFireAuth, private router: Router, private route: ActivatedRoute) {}
+    constructor(
+        private afs: AngularFirestore,
+        private afa: AngularFireAuth,
+        private projectService: ProjectService,
+        private router: Router,
+        private route: ActivatedRoute
+    ) {}
 
     ngOnInit() {
         // Setup the form
@@ -55,10 +61,11 @@ export class ProjectEditComponent implements OnInit {
         this.projectsCollection = this.afs.collection('projects');
 
         // Add the document
-        this.projectsCollection.add(newProject).then(ref => {
-            // Change the id field to the document id
-            ref.update({ id: ref.id });
-        });
+        this.projectService.addProject(newProject);
+        // this.projectsCollection.add(newProject).then(ref => {
+        //     // Change the id field to the document id
+        //     ref.update({ id: ref.id });
+        // });
     }
 
     // Navigate up one level

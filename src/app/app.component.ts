@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
 import { environment } from '../environments/environment';
+import { ProjectService } from './shared';
 
 @Component({
     selector: 'app-root',
@@ -8,7 +9,7 @@ import { environment } from '../environments/environment';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-    constructor() {}
+    constructor(private projectService: ProjectService) {}
 
     ngOnInit() {
         firebase.initializeApp({
@@ -19,5 +20,7 @@ export class AppComponent implements OnInit {
             storageBucket: 'cs-476-v2.appspot.com',
             messagingSenderId: '911742570688'
         });
+
+        this.projectService.run();
     }
 }

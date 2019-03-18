@@ -7,7 +7,7 @@ import { LanguageTranslationModule } from './shared/modules/language-translation
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthGuard } from './shared';
+import { AuthGuard, ProjectService } from './shared';
 
 // Angular fire
 import { AngularFireModule } from '@angular/fire';

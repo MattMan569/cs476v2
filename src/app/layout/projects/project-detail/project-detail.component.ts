@@ -1,15 +1,24 @@
 import { Component, OnInit } from '@angular/core';
+import { ProjectService, Project } from 'src/app/shared';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
-  selector: 'app-project-detail',
-  templateUrl: './project-detail.component.html',
-  styleUrls: ['./project-detail.component.scss']
+    selector: 'app-project-detail',
+    templateUrl: './project-detail.component.html',
+    styleUrls: ['./project-detail.component.scss']
 })
 export class ProjectDetailComponent implements OnInit {
+    private project: Project;
 
-  constructor() { }
+    constructor(private projectService: ProjectService, private router: Router, private route: ActivatedRoute) {}
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+        this.route.params.subscribe((params: Params) => {
+            this.project = this.projectService.getProjectById(params.id);
+        });
+    }
 
+    getProject(): Project {
+        return this.project;
+    }
 }

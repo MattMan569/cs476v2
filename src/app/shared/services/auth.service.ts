@@ -38,8 +38,6 @@ export class AuthService {
                     .signInWithEmailAndPassword(email, password)
                     .then(response => {
                         this.afa.authState.subscribe(auth => {
-                            this.authState = auth;
-                            console.log(this.authState);
                             this.afa.auth.currentUser
                                 .getIdToken()
                                 .then((token: string) => {

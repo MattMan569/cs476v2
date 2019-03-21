@@ -1,3 +1,5 @@
-<p>
-  task-item works!
-</p>
+<th scope="row" class="pr-5">{{ getTask().description }}</th>
+<td class="pr-5">{{ getDateCreated() }}</td>
+<td class="pr-5">{{ getDateDue() }}</td>
+<td class="pr-5">{{ getAssignee() }}</td>
+<td>{{ getTask().status }}</td>

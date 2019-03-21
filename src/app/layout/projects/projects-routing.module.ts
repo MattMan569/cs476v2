@@ -17,8 +17,8 @@ const routes: Routes = [
             { path: ':id', component: ProjectDetailComponent }, // Project details
             { path: ':id/edit', component: ProjectEditComponent }, // Edit project
             { path: ':id/addTask', component: TaskEditComponent }, // Add new task
-            { path: ':id/addTask:tid', component: TaskDetailComponent }, // Task details
-            { path: ':id/addTask:tid/edit', component: TaskEditComponent } // Edit task
+            { path: ':id/:tid', component: TaskDetailComponent }, // Task details
+            { path: ':id/:tid/edit', component: TaskEditComponent } // Edit task
         ]
     }
 ];

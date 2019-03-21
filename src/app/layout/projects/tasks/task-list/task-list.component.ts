@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { TaskService, Task } from 'src/app/shared';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-task-list',
@@ -8,7 +10,21 @@ import { Component, OnInit, Input } from '@angular/core';
 export class TaskListComponent implements OnInit {
     @Input() private projectId: string;
 
-    constructor() {}
+    private tasks: Task[] = [];
 
-    ngOnInit() {}
+    constructor(private taskService: TaskService, private router: Router) {}
+
+    ngOnInit() {
+        this.taskService.getTasksByProjectId(this.projectId).then((tasks: Task[]) => {
+            this.tasks = tasks;
+        });
+    }
+
+    getTasks(): Task[] {
+        return this.tasks;
+    }
+
+    onTaskClick(id: string): void {
+        // this.router.navigate(['task' + id]);
+    }
 }

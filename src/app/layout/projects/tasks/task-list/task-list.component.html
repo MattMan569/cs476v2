@@ -1,3 +1,29 @@
-<p>
-    task-list works!
-</p>
+<div class="container" *ngIf="getTasks().length !== 0">
+    <div class="row">
+        <div class="col">
+            <div class="card mb-3">
+                <div class="card-header">Tasks</div>
+                <table class="card-body table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Date Assigned</th>
+                            <th>Due Date</th>
+                            <th>Assignee</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr
+                            app-task-item
+                            *ngFor="let task of getTasks()"
+                            [task]="task"
+                            [routerLink]="task.id"
+                            (click)="onTaskClick(task.id)"
+                        ></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

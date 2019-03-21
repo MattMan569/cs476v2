@@ -1,40 +1,39 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
 import { Task } from '../interfaces';
-import { reject } from 'q';
 
 @Injectable({
     providedIn: 'root'
 })
 export class TaskService {
     private tasksCollection: AngularFirestoreCollection<Task>;
-    private tasks: Task[];
+    // private tasks: Task[];
 
     constructor(private afs: AngularFirestore) {
         this.tasksCollection = this.afs.collection('tasks');
-        this.tasksCollection.valueChanges().subscribe((tasks: Task[]) => {
-            this.tasks = tasks;
-        });
+        // this.tasksCollection.valueChanges().subscribe((tasks: Task[]) => {
+        //     this.tasks = tasks;
+        // });
     }
 
-    getTasksByProjectId(projectId: string): Task[] {
-        const taskArr: Task[] = [];
-
-        for (const task of this.tasks) {
-            if (task.projectId === projectId) {
-                taskArr.push(task);
-            }
-        }
-        this.tasksCollection.ref
-            .where('projectId', '==', projectId)
-            .get()
-            .then(result => {
-                result.forEach(doc => {
-                    taskArr.push(doc.data() as Task);
+    getTasksByProjectId(projectId: string): Promise<Task[]> {
+        return new Promise((resolve, reject) => {
+            const taskArr: Task[] = [];
+            this.tasksCollection.ref
+                .where('projectId', '==', projectId)
+                .orderBy('dateCreated')
+                .get()
+                .then(result => {
+                    result.forEach(doc => {
+                        taskArr.push(doc.data() as Task);
+                    });
+                    resolve(taskArr);
+                })
+                .catch(error => {
+                    console.log(error);
+                    reject();
                 });
-            });
-
-        return taskArr;
+        });
     }
 
     addTask(task: Task): Promise<any> {

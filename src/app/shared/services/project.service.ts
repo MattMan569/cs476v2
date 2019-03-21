@@ -41,7 +41,5 @@ export class ProjectService {
         return this.projectsChanged;
     }
 
-    run(): void {
-        // console.log('Project service loaded.');
-    }
+    run(): void {}
 }

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
 import { environment } from '../environments/environment';
 import { ProjectService } from './shared/services/project.service';
+import { TaskService } from './shared/services/task.service';
+import { UserService } from './shared/services/user.service';
 
 @Component({
     selector: 'app-root',
@@ -9,7 +11,7 @@ import { ProjectService } from './shared/services/project.service';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-    constructor(private projectService: ProjectService) {}
+    constructor(private projectService: ProjectService, private taskService: TaskService, private userService: UserService) {}
 
     ngOnInit() {
         if (!firebase) {
@@ -24,5 +26,7 @@ export class AppComponent implements OnInit {
         }
 
         this.projectService.run();
+        this.taskService.run();
+        this.userService.run();
     }
 }

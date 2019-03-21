@@ -1,3 +1,5 @@
-<button type="button" [routerLink]="'new'" class="btn btn-lg btn-success mb-3">Edit Project</button>
+<button type="button" [routerLink]="'edit'" class="btn btn-lg btn-primary mb-3 mr-3">Edit Project</button>
+<button type="button" [routerLink]="'edit'" class="btn btn-lg btn-success mb-3">Add Task</button>
 
 <p>Name: {{ getProject().name }}</p>
+<p>Description: {{ getProject().description }}</p>

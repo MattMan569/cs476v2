@@ -89,4 +89,12 @@ export class ProjectEditComponent implements OnInit {
     getForm() {
         return this.projectForm;
     }
+
+    getSubmitButtonText(): string {
+        if (this.editMode) {
+            return 'Update Project';
+        } else {
+            return 'Create Project';
+        }
+    }
 }

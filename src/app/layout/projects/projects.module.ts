@@ -25,10 +25,10 @@ import { TaskItemComponent } from './tasks/task-list/task-item/task-item.compone
         ProjectItemComponent,
         ProjectDetailComponent,
         TasksComponent,
-        TaskListComponent,
         TaskEditComponent,
-        TaskDetailComponent,
-        TaskItemComponent
+        TaskListComponent,
+        TaskItemComponent,
+        TaskDetailComponent
     ]
 })
 export class ProjectsModule {}

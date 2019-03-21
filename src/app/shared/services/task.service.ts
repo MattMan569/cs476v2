@@ -29,9 +29,22 @@ export class TaskService {
     }
 
     addTask(task: Task): void {
-        this.tasksCollection.add(task).then(ref => {
-            ref.update({ id: ref.id });
-        });
+        const userRef = this.afs.collection('users').ref;
+        // Replace the displayName with the uid
+        userRef
+            .where('displayName', '==', task.assignedTo)
+            .get()
+            .then(result => {
+                result.forEach(doc => {
+                    // console.log(doc.data());
+                    task.assignedTo = doc.data().uid;
+                });
+
+                // Add the task
+                this.tasksCollection.add(task).then(ref => {
+                    ref.update({ id: ref.id });
+                });
+            });
     }
 
     run(): void {}

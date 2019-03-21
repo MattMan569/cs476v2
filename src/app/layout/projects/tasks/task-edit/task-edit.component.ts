@@ -16,6 +16,7 @@ export class TaskEditComponent implements OnInit {
     private pid: string; // Project id
     private tid: string; // Task id
     private editMode = false;
+    private isInvalidUser = false;
 
     constructor(
         private afs: AngularFirestore,
@@ -77,7 +78,10 @@ export class TaskEditComponent implements OnInit {
         newTask.dateCompleted = null;
 
         // Add the document
-        this.taskService.addTask(newTask);
+        this.taskService
+            .addTask(newTask)
+            .then(() => this.router.navigate(['..'], { relativeTo: this.route }))
+            .catch(() => (this.isInvalidUser = true));
     }
 
     // Navigate up one level
@@ -95,5 +99,9 @@ export class TaskEditComponent implements OnInit {
         } else {
             return 'Create Task';
         }
+    }
+
+    getIsInvalidUser(): boolean {
+        return this.isInvalidUser;
     }
 }

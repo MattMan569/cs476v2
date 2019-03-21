@@ -58,6 +58,7 @@
         <div class="col-3">
             <input type="text" class="form-control" id="assignedTo" formControlName="assignedTo" />
         </div>
+        <span *ngIf="getIsInvalidUser()" class="help-block text-danger">User not found!</span>
     </fieldset>
 
     <!-- Submit or navigate back -->

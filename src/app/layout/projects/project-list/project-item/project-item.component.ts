@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Project, AuthService } from 'src/app/shared';
+import { Project, AuthService, User } from 'src/app/shared';
 
 @Component({
     selector: 'app-project-item',
@@ -8,21 +8,34 @@ import { Project, AuthService } from 'src/app/shared';
 })
 export class ProjectItemComponent implements OnInit {
     @Input() private project: Project;
-    @Input() private index: number;
+    @Input() private manager: User;
 
-    constructor(private authService: AuthService) {}
+    constructor() {}
 
     ngOnInit() {}
+
+    getProjectCardType(): string {
+        // if (Date.now() >= this.project.dateDue) {
+        if (this.project.status === 'Late') {
+            return 'text-white bg-danger';
+        } else {
+            return 'text-white bg-primary';
+        }
+    }
+
+    getProjectProgressBarType(): string {
+        if (this.project.status === 'Late') {
+            return 'danger';
+        } else {
+            return 'primary';
+        }
+    }
 
     getProject(): Project {
         return this.project;
     }
 
-    getIndex(): number {
-        return this.index;
-    }
-
-    getUser(): firebase.User {
-        return this.authService.getCurrentUser();
+    getManager(): User {
+        return this.manager;
     }
 }

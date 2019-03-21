@@ -1,7 +1,17 @@
 <a [routerLink]="[getProject().id]">
     <div class="col">
-        <div class="card text-white bg-primary mb-3">
-            <div class="card-header">Name: {{ getProject().name }}<br />Manager: {{ getUser().displayName }}</div>
+        <div class="card mb-3" [ngClass]="getProjectCardType()">
+            <div>
+                <ngb-progressbar
+                    [type]="getProjectProgressBarType()"
+                    showValue="true"
+                    striped="true"
+                    animated="true"
+                    [value]="50"
+                    [max]="100"
+                ></ngb-progressbar>
+            </div>
+            <div class="card-header">Project: {{ getProject().name }}<br />Manager: {{ getManager().displayName }}</div>
             <div class="card-body">
                 <h4 class="card-title">{{ getProject().status }}</h4>
                 <p class="card-text">

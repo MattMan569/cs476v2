@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Project } from 'src/app/shared';
+import { Project, User } from 'src/app/shared';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
 import { Observable, Subscription } from 'rxjs';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
     selector: 'app-project-list',
@@ -14,7 +15,7 @@ export class ProjectListComponent implements OnInit, OnDestroy {
     private projectsSubscription: Subscription;
     private projects: Project[];
 
-    constructor(private router: Router, private route: ActivatedRoute, private afs: AngularFirestore) {}
+    constructor(private afs: AngularFirestore, private userService: UserService) {}
 
     ngOnInit(): void {
         this.projectsCollection = this.afs.collection('projects', ref => {
@@ -27,6 +28,10 @@ export class ProjectListComponent implements OnInit, OnDestroy {
 
     getProjects(): Project[] {
         return this.projects;
+    }
+
+    getProjectManager(manager: string): User {
+        return this.userService.getUserById(manager);
     }
 
     ngOnDestroy(): void {

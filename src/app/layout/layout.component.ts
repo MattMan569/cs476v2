@@ -18,11 +18,13 @@ export class LayoutComponent implements OnInit {
     constructor(private afa: AngularFireAuth, private afs: AngularFirestore) {}
 
     ngOnInit() {
-        this.afaSub = this.afa.idToken.subscribe((id: string) => {
+        // Wait until the connection to the database services is established
+        // before rendering the view.
+        this.afaSub = this.afa.idToken.subscribe(() => {
             this.afaSub = this.afs
                 .collection('projects')
                 .valueChanges()
-                .subscribe(data2 => {
+                .subscribe(() => {
                     this.servicesLoaded = Promise.resolve(true);
                     if (this.afaSub) {
                         this.afaSub.unsubscribe();

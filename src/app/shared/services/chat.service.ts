@@ -15,6 +15,9 @@ export class ChatService {
         this.chatCollection = this.afs.collection('chat');
         this.chatCollection.valueChanges().subscribe((messages: ChatMessage[]) => {
             this.messages = messages;
+            this.messages.sort((a, b) => {
+                return b.dateSent - a.dateSent;
+            });
             this.newMessages.next(this.messages.slice());
         });
     }

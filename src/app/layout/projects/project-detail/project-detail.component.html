@@ -1,8 +1,15 @@
+<button type="button" [routerLink]="'..'" class="btn btn-lg btn-danger mb-3 mr-3">Cancel</button>
 <button type="button" [routerLink]="'edit'" class="btn btn-lg btn-primary mb-3 mr-3">Edit Project</button>
 <button type="button" [routerLink]="'addTask'" class="btn btn-lg btn-success mb-3">Add Task</button>
 
 <p>Name: {{ getProject().name }}</p>
 <p>Description: {{ getProject().description }}</p>
+<p>Manager: {{ getManager(getProject().manager) }}</p>
+<p>Status: {{ getProject().status }}</p>
+<p>Priority: {{ getProject().priority }}</p>
+<p>Creation Date: {{ getProject().dateCreated | date: 'medium' }}</p>
+<p>Due Date: {{ getProject().dateDue | date: 'mediumDate' }}</p>
+<p *ngIf="getProject().dateCompleted">Completion Date: {{ getProject().dateCompleted | date: 'mediumDate' }}</p>
 
 <!-- List of tasks with a projectId of this project's id -->
 <div class="row">

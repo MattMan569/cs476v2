@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Project } from 'src/app/shared';
+import { Project, UserService } from 'src/app/shared';
 import { ProjectService } from 'src/app/shared/services/project.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
@@ -11,7 +11,12 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 export class ProjectDetailComponent implements OnInit {
     private project: Project;
 
-    constructor(private projectService: ProjectService, private router: Router, private route: ActivatedRoute) {}
+    constructor(
+        private projectService: ProjectService,
+        private userService: UserService,
+        private router: Router,
+        private route: ActivatedRoute
+    ) {}
 
     ngOnInit() {
         this.route.params.subscribe((params: Params) => {
@@ -21,5 +26,9 @@ export class ProjectDetailComponent implements OnInit {
 
     getProject(): Project {
         return this.project;
+    }
+
+    getManager(uid: string): string {
+        return this.userService.getUserById(uid).displayName;
     }
 }

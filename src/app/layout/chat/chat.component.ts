@@ -18,7 +18,6 @@ export class ChatComponent implements OnInit {
         this.chatMessages = this.chatService.getMessages();
         this.chatService.getNewMessages().subscribe((chatMessages: ChatMessage[]) => {
             this.chatMessages = chatMessages;
-            console.log(this.chatMessages);
         });
 
         this.chatForm = new FormGroup({

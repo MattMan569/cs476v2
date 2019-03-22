@@ -7,29 +7,10 @@
 
 <div class="container border border-primary rounded mb-1" *ngFor="let message of getChatMessages()">
     <div class="row mt-3 mb-3">
-        <div class="col-2">{{ message.senderId }}</div>
+        <div class="col-2">{{ getDisplayName(message.senderId) }}</div>
         <div class="col-8">
             <span>{{ message.message }}</span>
         </div>
-        <div class="col-2 text-right">{{ message.dateSent | date: 'shortTime' }}</div>
-    </div>
-</div>
-
-<div class="container border border-primary rounded mb-1">
-    <div class="row mt-3 mb-3">
-        <div class="col-2">Username</div>
-        <div class="col-8">
-            <span>Test message</span>
-        </div>
-        <div class="col-2 text-right">12:04 am</div>
-    </div>
-</div>
-<div class="container border border-primary rounded mb-1">
-    <div class="row mt-3 mb-3">
-        <div class="col-2">Username</div>
-        <div class="col">
-            <span>Test message</span>
-        </div>
-        <div class="col-2 text-right">12:04 am</div>
+        <div class="col-2 text-right">{{ message.dateSent | date: 'short' }}</div>
     </div>
 </div>

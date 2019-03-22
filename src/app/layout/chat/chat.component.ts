@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ChatService, ChatMessage } from 'src/app/shared/';
+import { ChatService, ChatMessage, UserService, User } from 'src/app/shared/';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AngularFireAuth } from '@angular/fire/auth';
 
@@ -12,7 +12,7 @@ export class ChatComponent implements OnInit {
     private chatForm: FormGroup;
     private chatMessages: ChatMessage[] = [];
 
-    constructor(private chatService: ChatService, private afa: AngularFireAuth) {}
+    constructor(private chatService: ChatService, private userService: UserService, private afa: AngularFireAuth) {}
 
     ngOnInit() {
         this.chatMessages = this.chatService.getMessages();
@@ -27,12 +27,16 @@ export class ChatComponent implements OnInit {
     }
 
     onSubmit() {
+        if (!this.chatForm.valid) {
+            return;
+        }
         const newChatMessage: ChatMessage = this.chatForm.value;
 
         newChatMessage.senderId = this.afa.auth.currentUser.uid;
         newChatMessage.dateSent = Date.now();
 
         this.chatService.sendChat(newChatMessage);
+        this.chatForm.reset();
     }
 
     getForm() {
@@ -41,5 +45,9 @@ export class ChatComponent implements OnInit {
 
     getChatMessages(): ChatMessage[] {
         return this.chatMessages;
+    }
+
+    getDisplayName(uid: string): string {
+        return this.userService.getUserById(uid).displayName;
     }
 }

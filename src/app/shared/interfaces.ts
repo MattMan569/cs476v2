@@ -30,3 +30,10 @@ export interface Task {
     assignedTo: string; // uid
     assignedBy: string; // uid
 }
+
+export interface ChatMessage {
+    id: string;
+    senderId: string;
+    dateSent: number;
+    message: string;
+}

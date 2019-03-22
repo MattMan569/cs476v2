@@ -4,6 +4,7 @@ import { environment } from '../environments/environment';
 import { ProjectService } from './shared/services/project.service';
 import { TaskService } from './shared/services/task.service';
 import { UserService } from './shared/services/user.service';
+import { ChatService } from './shared/services/chat.service';
 
 @Component({
     selector: 'app-root',
@@ -11,7 +12,12 @@ import { UserService } from './shared/services/user.service';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-    constructor(private projectService: ProjectService, private taskService: TaskService, private userService: UserService) {}
+    constructor(
+        private projectService: ProjectService,
+        private taskService: TaskService,
+        private userService: UserService,
+        private chatService: ChatService
+    ) {}
 
     ngOnInit() {
         if (!firebase) {
@@ -28,5 +34,6 @@ export class AppComponent implements OnInit {
         this.projectService.run();
         this.taskService.run();
         this.userService.run();
+        this.chatService.run();
     }
 }

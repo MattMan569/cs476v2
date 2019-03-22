@@ -72,6 +72,12 @@ export class ProjectEditComponent implements OnInit {
         formDate += this.projectForm.value.dateDue.day;
         newProject.dateDue = new Date(formDate).valueOf();
 
+        if (this.editMode) {
+            newProject.id = this.id;
+            this.projectService.updateProject(newProject);
+            return;
+        }
+
         newProject.id = -1 + '';
         newProject.manager = this.afa.auth.currentUser.uid;
         newProject.dateCreated = Date.now();

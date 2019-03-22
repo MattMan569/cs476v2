@@ -37,6 +37,10 @@ export class ProjectService {
         });
     }
 
+    updateProject(project: Project): void {
+        this.projectsCollection.doc(project.id).update(project);
+    }
+
     getProjectsSubject(): Subject<Project[]> {
         return this.projectsChanged;
     }

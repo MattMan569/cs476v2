@@ -33,7 +33,7 @@ export interface Task {
 
 export interface ChatMessage {
     id: string;
-    senderId: string;
+    senderId: string; // uid
     dateSent: number;
     message: string;
 }

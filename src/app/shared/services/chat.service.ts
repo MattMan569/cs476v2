@@ -19,6 +19,10 @@ export class ChatService {
         });
     }
 
+    getMessages(): ChatMessage[] {
+        return this.messages;
+    }
+
     getNewMessages(): Subject<ChatMessage[]> {
         return this.newMessages;
     }

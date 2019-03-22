@@ -1,3 +1,35 @@
-<p>
-  chat works!
-</p>
+<form [formGroup]="getForm()" (ngSubmit)="onSubmit()">
+    <!-- Chat message -->
+    <fieldset class="form-group">
+        <input type="text" id="message" formControlName="message" class="form-control" />
+    </fieldset>
+</form>
+
+<div class="container border border-primary rounded mb-1" *ngFor="let message of getChatMessages()">
+    <div class="row mt-3 mb-3">
+        <div class="col-2">{{ message.senderId }}</div>
+        <div class="col-8">
+            <span>{{ message.message }}</span>
+        </div>
+        <div class="col-2 text-right">{{ message.dateSent | date: 'shortTime' }}</div>
+    </div>
+</div>
+
+<div class="container border border-primary rounded mb-1">
+    <div class="row mt-3 mb-3">
+        <div class="col-2">Username</div>
+        <div class="col-8">
+            <span>Test message</span>
+        </div>
+        <div class="col-2 text-right">12:04 am</div>
+    </div>
+</div>
+<div class="container border border-primary rounded mb-1">
+    <div class="row mt-3 mb-3">
+        <div class="col-2">Username</div>
+        <div class="col">
+            <span>Test message</span>
+        </div>
+        <div class="col-2 text-right">12:04 am</div>
+    </div>
+</div>

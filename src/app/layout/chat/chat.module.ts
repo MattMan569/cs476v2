@@ -3,9 +3,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ChatRoutingModule } from './chat-routing.module';
+import { ReactiveFormsModule } from '@angular/forms';
+
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
-    imports: [CommonModule, NgbModule, ChatRoutingModule],
+    imports: [CommonModule, NgbModule, ReactiveFormsModule, ChatRoutingModule],
     declarations: [ChatComponent]
 })
 export class ChatModule {}

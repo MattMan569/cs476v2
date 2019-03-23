@@ -14,6 +14,7 @@ export class ProjectItemComponent implements OnInit {
     constructor(private taskService: TaskService) {}
 
     ngOnInit() {
+        // Calculate the project completion percentage
         this.taskService.getTasksByProjectId(this.project.id).then((tasks: Task[]) => {
             let completedWeight = 0;
             let totalWeight = 0;
@@ -26,7 +27,9 @@ export class ProjectItemComponent implements OnInit {
 
             // Get the total and complete weight
             tasks.forEach(task => {
-                totalWeight += task.weight;
+                if (task.status != 'Canceled') {
+                    totalWeight += task.weight;
+                }
                 if (task.status === 'Complete') {
                     completedWeight += task.weight;
                 }

@@ -27,7 +27,7 @@ export class ProjectItemComponent implements OnInit {
 
             // Get the total and complete weight
             tasks.forEach(task => {
-                if (task.status != 'Canceled') {
+                if (task.status !== 'Canceled') {
                     totalWeight += task.weight;
                 }
                 if (task.status === 'Complete') {

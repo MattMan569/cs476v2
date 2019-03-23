@@ -1,5 +1,5 @@
 <button type="button" [routerLink]="'..'" class="btn btn-lg btn-danger mb-3 mr-3">Cancel</button>
-<button type="button" [routerLink]="'edit'" class="btn btn-lg btn-primary mb-3 mr-3">Edit Project</button>
+<button *ngIf="getCanEdit()" type="button" [routerLink]="'edit'" class="btn btn-lg btn-primary mb-3 mr-3">Edit Project</button>
 <button type="button" [routerLink]="'addTask'" class="btn btn-lg btn-success mb-3">Add Task</button>
 
 <p>Name: {{ getProject().name }}</p>

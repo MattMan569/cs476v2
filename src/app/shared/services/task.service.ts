@@ -16,12 +16,31 @@ export class TaskService {
         // });
     }
 
+    getTaskById(taskId: string): Promise<Task> {
+        let task: Task;
+        return new Promise((resolve, reject) => {
+            this.tasksCollection.ref
+                .where('id', '==', taskId)
+                .get()
+                .then(result => {
+                    result.forEach(doc => {
+                        task = doc.data() as Task;
+                    });
+                    resolve(task);
+                })
+                .catch(error => {
+                    console.log(error);
+                    reject();
+                });
+        });
+    }
+
     getTasksByProjectId(projectId: string): Promise<Task[]> {
         return new Promise((resolve, reject) => {
             const taskArr: Task[] = [];
             this.tasksCollection.ref
                 .where('projectId', '==', projectId)
-                .orderBy('dateCreated')
+                .orderBy('dateCreated', 'desc')
                 .get()
                 .then(result => {
                     result.forEach(doc => {
@@ -66,6 +85,10 @@ export class TaskService {
                     reject();
                 });
         });
+    }
+
+    updateTask(task: Task): void {
+        this.tasksCollection.doc(task.id).update(task);
     }
 
     run(): void {}

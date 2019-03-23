@@ -7,7 +7,7 @@
                     showValue="true"
                     striped="true"
                     animated="true"
-                    [value]="50"
+                    [value]="getProjectProgress() | async"
                     [max]="100"
                 ></ngb-progressbar>
             </div>

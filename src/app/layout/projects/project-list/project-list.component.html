@@ -1,9 +1,14 @@
 <button type="button" [routerLink]="'new'" class="btn btn-lg btn-success mb-3">New Project</button>
+<select [(ngModel)]="filter" class="dropdown">
+    <option *ngFor="let filter of getFilters()" [ngValue]="filter">{{ filter }}</option>
+</select>
 
 <div class="row">
-    <app-project-item
-        *ngFor="let project of getProjects(); let i = index"
-        [project]="project"
-        [manager]="getProjectManager(project.manager)"
-    ></app-project-item>
+    <ng-container *ngFor="let project of getProjects()">
+        <app-project-item
+            *ngIf="isDisplayed(project)"
+            [project]="project"
+            [manager]="getProjectManager(project.manager)"
+        ></app-project-item>
+    </ng-container>
 </div>

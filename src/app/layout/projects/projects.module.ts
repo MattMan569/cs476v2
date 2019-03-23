@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -17,7 +17,7 @@ import { TaskDetailComponent } from './tasks/task-detail/task-detail.component';
 import { TaskItemComponent } from './tasks/task-list/task-item/task-item.component';
 
 @NgModule({
-    imports: [CommonModule, ReactiveFormsModule, NgbModule, ProjectsRoutingModule],
+    imports: [CommonModule, ReactiveFormsModule, FormsModule, NgbModule, ProjectsRoutingModule],
     declarations: [
         ProjectsComponent,
         ProjectEditComponent,

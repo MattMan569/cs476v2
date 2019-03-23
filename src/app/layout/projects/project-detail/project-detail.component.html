@@ -2,16 +2,58 @@
 <button *ngIf="getCanEdit()" type="button" [routerLink]="'edit'" class="btn btn-lg btn-primary mb-3 mr-3">Edit Project</button>
 <button type="button" [routerLink]="'addTask'" class="btn btn-lg btn-success mb-3">Add Task</button>
 
-<p>Name: {{ getProject().name }}</p>
-<p>Description: {{ getProject().description }}</p>
-<p>Manager: {{ getManager(getProject().manager) }}</p>
-<p>Status: {{ getProject().status }}</p>
-<p>Priority: {{ getProject().priority }}</p>
-<p>Creation Date: {{ getProject().dateCreated | date: 'medium' }}</p>
-<p>Due Date: {{ getProject().dateDue | date: 'mediumDate' }}</p>
-<p *ngIf="getProject().dateCompleted">Completion Date: {{ getProject().dateCompleted | date: 'mediumDate' }}</p>
+<div class="container p-0">
+    <div class="row no-gutters">
+        <div class="col-2">Name:</div>
+        <div class="col-10">
+            {{ getProject().name }}
+        </div>
+    </div>
+    <div class="row no-gutters">
+        <div class="col-2">Description:</div>
+        <div class="col-10">
+            {{ getProject().description }}
+        </div>
+    </div>
+    <div class="row no-gutters">
+        <div class="col-2">Project Manager:</div>
+        <div class="col-10">
+            {{ getManager(getProject().manager) }}
+        </div>
+    </div>
+    <div class="row no-gutters">
+        <div class="col-2">Status:</div>
+        <div class="col-10">
+            {{ getProject().status }}
+        </div>
+    </div>
+    <div class="row no-gutters">
+        <div class="col-2">Priority:</div>
+        <div class="col-10">
+            {{ getProject().priority }}
+        </div>
+    </div>
+    <div class="row no-gutters">
+        <div class="col-2">Creation Date:</div>
+        <div class="col-10">
+            {{ getProject().dateCreated | date: 'medium' }}
+        </div>
+    </div>
+    <div class="row no-gutters">
+        <div class="col-2">Due Date:</div>
+        <div class="col-10">
+            {{ getProject().dateDue | date: 'mediumDate' }}
+        </div>
+    </div>
+    <div class="row no-gutters" *ngIf="getProject().dateCompleted">
+        <div class="col-2">Completion Date:</div>
+        <div class="col-10">
+            {{ getProject().dateCompleted | date: 'mediumDate' }}
+        </div>
+    </div>
+</div>
 
 <!-- List of tasks with a projectId of this project's id -->
-<div class="row">
+<div class="row mt-3">
     <app-task-list [projectId]="getProject().id"></app-task-list>
 </div>

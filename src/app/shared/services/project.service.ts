@@ -37,8 +37,8 @@ export class ProjectService {
         });
     }
 
-    updateProject(project: Project): void {
-        this.projectsCollection.doc(project.id).update(project);
+    updateProject(project: Project): Promise<void> {
+        return this.projectsCollection.doc(project.id).update(project);
     }
 
     getProjectsSubject(): Subject<Project[]> {

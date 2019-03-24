@@ -95,8 +95,9 @@ export class ProjectEditComponent implements OnInit {
             if (!newProject.dateDue) {
                 newProject.dateDue = this.projectService.getProjectById(newProject.id).dateDue;
             }
-            this.projectService.updateProject(newProject);
-            this.router.navigate(['..'], { relativeTo: this.route });
+            this.projectService.updateProject(newProject).then(() => {
+                this.router.navigate(['..'], { relativeTo: this.route });
+            });
             return;
         }
 

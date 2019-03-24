@@ -44,6 +44,12 @@ export class ProjectItemComponent implements OnInit {
         // if (Date.now() >= this.project.dateDue) {
         if (this.project.status === 'Late') {
             return 'text-white bg-danger';
+        } else if (this.project.status === 'Canceled') {
+            return 'text-white bg-secondary';
+        } else if (this.project.status === 'Complete') {
+            return 'text-white bg-success';
+        } else if (this.project.status === 'Paused') {
+            return 'text-white bg-warning';
         } else {
             return 'text-white bg-primary';
         }

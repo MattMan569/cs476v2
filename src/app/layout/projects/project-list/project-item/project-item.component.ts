@@ -41,7 +41,6 @@ export class ProjectItemComponent implements OnInit {
     }
 
     getProjectCardType(): string {
-        // if (Date.now() >= this.project.dateDue) {
         if (this.project.status === 'Late') {
             return 'text-white bg-danger';
         } else if (this.project.status === 'Canceled') {
@@ -58,6 +57,12 @@ export class ProjectItemComponent implements OnInit {
     getProjectProgressBarType(): string {
         if (this.project.status === 'Late') {
             return 'danger';
+        } else if (this.project.status === 'Canceled') {
+            return 'secondary';
+        } else if (this.project.status === 'Complete') {
+            return 'success';
+        } else if (this.project.status === 'Paused') {
+            return 'warning';
         } else {
             return 'primary';
         }

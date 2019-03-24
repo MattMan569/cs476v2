@@ -33,9 +33,9 @@
     <!-- Status -->
     <fieldset class="form-group no-gutters">
         <div class="col-3">
-            <label for="status">Initial Status</label>
+            <label for="status">Status</label>
             <select id="status" formControlName="status" class="form-control">
-                <option value="Undefined">Undefined</option>
+                <option value="Complete" [disabled]="isCompletedDisabled()">Complete</option>
                 <option value="In Progress">In Progress</option>
                 <option value="Late">Late</option>
                 <option value="Paused">Paused</option>

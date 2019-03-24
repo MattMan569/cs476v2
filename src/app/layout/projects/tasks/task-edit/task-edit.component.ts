@@ -85,7 +85,7 @@ export class TaskEditComponent implements OnInit {
 
         if (this.editMode) {
             newTask.id = this.tid;
-            this.taskService.updateTask(newTask);
+            this.taskService.updateTask(newTask).then(() => this.router.navigate(['..'], { relativeTo: this.route }));
             return;
         }
 
@@ -123,7 +123,7 @@ export class TaskEditComponent implements OnInit {
         return this.isInvalidUser;
     }
 
-    getIsManager(): boolean {
-        return this.isManager;
+    managerFieldsDisabled(): boolean {
+        return this.editMode && !this.isManager;
     }
 }

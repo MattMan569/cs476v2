@@ -33,17 +33,19 @@ export class ProjectEditComponent implements OnInit {
             this.editMode = params.id != null;
             this.id = params.id;
 
-            this.taskService.getTasksByProjectId(this.id).then((tasks: Task[]) => {
-                if (tasks.length !== 0) {
-                    let allCompleted = true;
-                    tasks.forEach((task: Task) => {
-                        if (task.status !== 'Complete') {
-                            allCompleted = false;
-                        }
-                    });
-                    this.completedDisabled = !allCompleted;
-                }
-            });
+            if (this.id) {
+                this.taskService.getTasksByProjectId(this.id).then((tasks: Task[]) => {
+                    if (tasks.length !== 0) {
+                        let allCompleted = true;
+                        tasks.forEach((task: Task) => {
+                            if (task.status !== 'Complete') {
+                                allCompleted = false;
+                            }
+                        });
+                        this.completedDisabled = !allCompleted;
+                    }
+                });
+            }
         });
 
         if (this.editMode) {

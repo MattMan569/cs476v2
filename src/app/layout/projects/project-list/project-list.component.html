@@ -1,7 +1,15 @@
-<button type="button" [routerLink]="'new'" class="btn btn-lg btn-success mb-3">New Project</button>
-<select [(ngModel)]="filter" class="dropdown">
-    <option *ngFor="let filter of getFilters()" [ngValue]="filter">{{ filter }}</option>
-</select>
+<div class="container p-0">
+    <div class="row no-gutters">
+        <div class="col">
+            <button type="button" [routerLink]="'new'" class="btn btn-lg btn-success mb-3">New Project</button>
+        </div>
+        <div class="col text-right">
+            <select [(ngModel)]="filter" class="dropdown">
+                <option *ngFor="let filter of getFilters()" [ngValue]="filter">{{ filter }}</option>
+            </select>
+        </div>
+    </div>
+</div>
 
 <div class="row">
     <ng-container *ngFor="let project of getProjects()">

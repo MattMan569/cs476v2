@@ -1,6 +1,6 @@
 <button type="button" [routerLink]="'..'" class="btn btn-lg btn-danger mb-3 mr-3">Cancel</button>
 <button *ngIf="getCanEdit()" type="button" [routerLink]="'edit'" class="btn btn-lg btn-primary mb-3 mr-3">Edit Project</button>
-<button type="button" [routerLink]="'addTask'" class="btn btn-lg btn-success mb-3">Add Task</button>
+<button *ngIf="getCanEdit()" type="button" [routerLink]="'addTask'" class="btn btn-lg btn-success mb-3">Add Task</button>
 
 <div class="container p-0">
     <div class="row no-gutters">

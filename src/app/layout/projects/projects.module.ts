@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ChartsModule as Ng2Charts } from 'ng2-charts';
 
 import { ProjectsRoutingModule } from './projects-routing.module';
 import { ProjectsComponent } from './projects.component';
@@ -17,7 +18,7 @@ import { TaskDetailComponent } from './tasks/task-detail/task-detail.component';
 import { TaskItemComponent } from './tasks/task-list/task-item/task-item.component';
 
 @NgModule({
-    imports: [CommonModule, ReactiveFormsModule, FormsModule, NgbModule, ProjectsRoutingModule],
+    imports: [CommonModule, ReactiveFormsModule, FormsModule, NgbModule, Ng2Charts, ProjectsRoutingModule],
     declarations: [
         ProjectsComponent,
         ProjectEditComponent,

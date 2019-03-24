@@ -1,13 +1,13 @@
 <form *ngIf="getForm()" [formGroup]="getForm()" (ngSubmit)="onSubmit()">
     <!-- Description -->
-    <fieldset class="form-group">
+    <fieldset class="form-group" [disabled]="!getIsManager()">
         <label for="description">Task Description</label>
         <!-- <input type="text" id="description" formControlName="description" class="form-control" /> -->
         <textarea id="description" formControlName="description" rows="4" class="form-control"></textarea>
     </fieldset>
 
     <!-- Due Date -->
-    <fieldset class="form-group no-gutters">
+    <fieldset class="form-group no-gutters" [disabled]="!getIsManager()">
         <label for="dateDue">Task Due Date</label>
         <div class="input-group datpicker-input col-3">
             <input
@@ -25,7 +25,7 @@
     </fieldset>
 
     <!-- Task Weight -->
-    <fieldset class="form-group no-gutters">
+    <fieldset class="form-group no-gutters" [disabled]="!getIsManager()">
         <label for="weight">Task Weight </label>
         &nbsp;
         <i
@@ -34,7 +34,7 @@
             placement="right"
         ></i>
         <div class="col-1">
-            <input type="number" class="form-control" id="weight" formControlName="weight" />
+            <input type="number" min="0" class="form-control" id="weight" formControlName="weight" />
         </div>
     </fieldset>
 
@@ -53,7 +53,7 @@
     </fieldset>
 
     <!-- Assignee -->
-    <fieldset class="form-group no-gutters">
+    <fieldset class="form-group no-gutters" [disabled]="!getIsManager()">
         <label for="assignedTo">Assignee</label>
         <div class="col-3">
             <input type="text" class="form-control" id="assignedTo" formControlName="assignedTo" />

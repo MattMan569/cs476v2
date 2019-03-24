@@ -17,6 +17,7 @@ export class TaskEditComponent implements OnInit {
     private tid: string; // Task id
     private editMode = false;
     private isInvalidUser = false;
+    private isManager = false;
 
     constructor(
         private afs: AngularFirestore,
@@ -37,6 +38,10 @@ export class TaskEditComponent implements OnInit {
 
         if (this.editMode) {
             this.taskService.getTaskById(this.tid).then((task: Task) => {
+                if (task.assignedBy === this.afa.auth.currentUser.uid) {
+                    this.isManager = true;
+                }
+
                 const date = new Date(task.dateDue);
                 this.taskForm = new FormGroup({
                     description: new FormControl(task.description, Validators.required),
@@ -116,5 +121,9 @@ export class TaskEditComponent implements OnInit {
 
     getIsInvalidUser(): boolean {
         return this.isInvalidUser;
+    }
+
+    getIsManager(): boolean {
+        return this.isManager;
     }
 }

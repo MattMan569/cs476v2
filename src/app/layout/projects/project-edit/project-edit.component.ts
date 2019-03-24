@@ -96,6 +96,7 @@ export class ProjectEditComponent implements OnInit {
                 newProject.dateDue = this.projectService.getProjectById(newProject.id).dateDue;
             }
             this.projectService.updateProject(newProject);
+            this.router.navigate(['..'], { relativeTo: this.route });
             return;
         }
 
@@ -106,6 +107,8 @@ export class ProjectEditComponent implements OnInit {
 
         // Add the document
         this.projectService.addProject(newProject);
+
+        this.router.navigate(['..'], { relativeTo: this.route });
     }
 
     // Navigate up one level

@@ -5,12 +5,13 @@
     </fieldset>
 </form>
 
-<div class="container border border-primary rounded mb-1" *ngFor="let message of getChatMessages()">
-    <div class="row mt-3 mb-3">
+<div class="container p-0" *ngFor="let message of getChatMessages()">
+    <div class="row rounded m-1 p-2 w-75" [ngClass]="getClass(message)">
         <div class="col-2">{{ getDisplayName(message.senderId) }}</div>
         <div class="col-8">
             <span>{{ message.message }}</span>
         </div>
-        <div class="col-2 text-right">{{ message.dateSent | date: 'short' }}</div>
+        <!-- <div class="col-2 text-right">{{ message.dateSent | date: 'short' }}</div> -->
+        <div class="col-2 text-right">{{ getDateSent(message) }}</div>
     </div>
 </div>

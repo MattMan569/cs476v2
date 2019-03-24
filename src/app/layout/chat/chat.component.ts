@@ -49,4 +49,31 @@ export class ChatComponent implements OnInit {
     getDisplayName(uid: string): string {
         return this.userService.getUserById(uid).displayName;
     }
+
+    getClass(message: ChatMessage): string {
+        if (message.senderId === this.afa.auth.currentUser.uid) {
+            return 'bg-primary text-white ml-auto';
+        } else {
+            return 'bg-success text-white';
+        }
+    }
+
+    getDateSent(message: ChatMessage): string {
+        let date = '';
+        date += new Date(message.dateSent).getMonth();
+        date += '/';
+        date += new Date(message.dateSent).getDate();
+        date += '/';
+        date += new Date(message.dateSent).getFullYear();
+        date += ' ';
+        date += new Date(message.dateSent).getHours() % 12;
+        date += ':';
+        date += new Date(message.dateSent).getMinutes();
+        date += ':';
+        date += new Date(message.dateSent).getSeconds();
+        date += '\u00A0'; // nbsp
+        date += new Date(message.dateSent).getHours() >= 12 ? 'PM' : 'AM';
+
+        return date;
+    }
 }

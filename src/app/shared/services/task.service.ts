@@ -87,8 +87,30 @@ export class TaskService {
         });
     }
 
-    updateTask(task: Task): void {
-        this.tasksCollection.doc(task.id).update(task);
+    updateTask(task: Task): Promise<any> {
+        return new Promise((resolve, reject) => {
+            const userRef = this.afs.collection('users').ref;
+            userRef
+                .where('displayName', '==', task.assignedTo)
+                .get()
+                .then(result => {
+                    if (result.empty) {
+                        reject();
+                    }
+
+                    result.forEach(doc => {
+                        task.assignedTo = doc.data().uid;
+                    });
+
+                    this.tasksCollection.doc(task.id).update(task);
+
+                    resolve();
+                })
+                .catch(error => {
+                    console.log(error);
+                    reject();
+                });
+        });
     }
 
     run(): void {}

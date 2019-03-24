@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { TaskService, Task } from 'src/app/shared';
+import { TaskService, Task, UserService } from 'src/app/shared';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { NgbDatepicker } from '@ng-bootstrap/ng-bootstrap';
 
@@ -22,6 +22,7 @@ export class TaskEditComponent implements OnInit {
         private afs: AngularFirestore,
         private afa: AngularFireAuth,
         private taskService: TaskService,
+        private userService: UserService,
         private router: Router,
         private route: ActivatedRoute
     ) {}
@@ -35,12 +36,18 @@ export class TaskEditComponent implements OnInit {
         });
 
         if (this.editMode) {
-            this.taskForm = new FormGroup({
-                description: new FormControl(null, Validators.required),
-                dateDue: new FormControl(null, Validators.required),
-                weight: new FormControl(1, Validators.required),
-                status: new FormControl('In Progress', Validators.required),
-                assignedTo: new FormControl(null, Validators.required)
+            this.taskService.getTaskById(this.tid).then((task: Task) => {
+                const date = new Date(task.dateDue);
+                this.taskForm = new FormGroup({
+                    description: new FormControl(task.description, Validators.required),
+                    dateDue: new FormControl(
+                        { year: date.getFullYear(), month: date.getMonth(), day: date.getDate() },
+                        Validators.required
+                    ),
+                    weight: new FormControl(task.weight, Validators.required),
+                    status: new FormControl(task.status, Validators.required),
+                    assignedTo: new FormControl(this.userService.getUserById(task.assignedTo).displayName, Validators.required)
+                });
             });
         } else {
             this.taskForm = new FormGroup({
@@ -70,6 +77,12 @@ export class TaskEditComponent implements OnInit {
         formDate += this.taskForm.value.dateDue.month + '-';
         formDate += this.taskForm.value.dateDue.day;
         newTask.dateDue = new Date(formDate).valueOf();
+
+        if (this.editMode) {
+            newTask.id = this.tid;
+            this.taskService.updateTask(newTask);
+            return;
+        }
 
         newTask.id = -1 + '';
         newTask.projectId = this.pid;

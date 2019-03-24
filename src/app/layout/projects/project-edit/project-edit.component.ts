@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbDatepicker } from '@ng-bootstrap/ng-bootstrap';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Project } from 'src/app/shared';
+import { Project, TaskService, Task } from 'src/app/shared';
 import { ProjectService } from 'src/app/shared/services/project.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 
@@ -16,11 +16,13 @@ export class ProjectEditComponent implements OnInit {
     private projectForm: FormGroup;
     private id: string;
     private editMode = false;
+    private completedDisabled = true;
 
     constructor(
         private afs: AngularFirestore,
         private afa: AngularFireAuth,
         private projectService: ProjectService,
+        private taskService: TaskService,
         private router: Router,
         private route: ActivatedRoute
     ) {}
@@ -30,15 +32,29 @@ export class ProjectEditComponent implements OnInit {
         this.route.params.subscribe((params: Params) => {
             this.editMode = params.id != null;
             this.id = params.id;
+
+            this.taskService.getTasksByProjectId(this.id).then((tasks: Task[]) => {
+                if (tasks.length !== 0) {
+                    let allCompleted = true;
+                    tasks.forEach((task: Task) => {
+                        if (task.status !== 'Complete') {
+                            allCompleted = false;
+                        }
+                    });
+                    this.completedDisabled = !allCompleted;
+                }
+            });
         });
 
         if (this.editMode) {
             // Setup a prepopulated form
             const selectedProject = this.projectService.getProjectById(this.id);
+            const date = new Date(selectedProject.dateDue);
             this.projectForm = new FormGroup({
                 name: new FormControl(selectedProject.name, Validators.required),
                 description: new FormControl(selectedProject.description, Validators.required),
-                dateDue: new FormControl(selectedProject.dateDue, Validators.required),
+                // dateDue: new FormControl(selectedProject.dateDue, Validators.required),
+                dateDue: new FormControl({ year: date.getFullYear(), month: date.getMonth(), day: date.getDate() }, Validators.required),
                 status: new FormControl(selectedProject.status, Validators.required),
                 priority: new FormControl(selectedProject.priority, Validators.required)
             });
@@ -74,6 +90,9 @@ export class ProjectEditComponent implements OnInit {
 
         if (this.editMode) {
             newProject.id = this.id;
+            if (!newProject.dateDue) {
+                newProject.dateDue = this.projectService.getProjectById(newProject.id).dateDue;
+            }
             this.projectService.updateProject(newProject);
             return;
         }
@@ -102,5 +121,9 @@ export class ProjectEditComponent implements OnInit {
         } else {
             return 'Create Project';
         }
+    }
+
+    isCompletedDisabled(): boolean {
+        return this.completedDisabled;
     }
 }

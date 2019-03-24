@@ -1,4 +1,4 @@
-<form [formGroup]="getForm()" (ngSubmit)="onSubmit()">
+<form *ngIf="getForm()" [formGroup]="getForm()" (ngSubmit)="onSubmit()">
     <!-- Description -->
     <fieldset class="form-group">
         <label for="description">Task Description</label>

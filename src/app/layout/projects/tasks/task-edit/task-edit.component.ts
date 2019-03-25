@@ -19,6 +19,7 @@ export class TaskEditComponent implements OnInit {
     private editMode = false;
     private isInvalidUser = false;
     private isManager = false;
+    private submitAttempted = false;
 
     constructor(
         private afs: AngularFirestore,
@@ -74,6 +75,12 @@ export class TaskEditComponent implements OnInit {
     }
 
     onSubmit() {
+        // Only allow the submission of valid forms
+        if (!this.taskForm.valid) {
+            this.submitAttempted = true;
+            return;
+        }
+
         let newTask: Task;
         let formDate = '';
 
@@ -143,5 +150,16 @@ export class TaskEditComponent implements OnInit {
 
     managerFieldsDisabled(): boolean {
         return this.editMode && !this.isManager;
+    }
+
+    isFormInvalid(): boolean {
+        if (this.submitAttempted) {
+            this.taskForm.controls.description.markAsTouched();
+            this.taskForm.controls.dateDue.markAsTouched();
+            this.taskForm.controls.assignedTo.markAsTouched();
+        }
+        if (this.taskForm.get('assignedTo').touched && this.taskForm.get('description').touched && this.taskForm.get('dateDue').touched) {
+            return this.taskForm.invalid;
+        }
     }
 }

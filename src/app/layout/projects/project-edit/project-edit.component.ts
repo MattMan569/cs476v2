@@ -17,6 +17,7 @@ export class ProjectEditComponent implements OnInit {
     private id: string;
     private editMode = false;
     private completedDisabled = true;
+    private canceledDisabled = true;
 
     constructor(
         private afs: AngularFirestore,
@@ -34,6 +35,7 @@ export class ProjectEditComponent implements OnInit {
             this.id = params.id;
 
             if (this.id) {
+                this.canceledDisabled = false;
                 this.taskService.getTasksByProjectId(this.id).then((tasks: Task[]) => {
                     if (tasks.length !== 0) {
                         let allCompleted = true;
@@ -131,5 +133,9 @@ export class ProjectEditComponent implements OnInit {
 
     isCompletedDisabled(): boolean {
         return this.completedDisabled;
+    }
+
+    isCanceledDisabled(): boolean {
+        return this.canceledDisabled;
     }
 }

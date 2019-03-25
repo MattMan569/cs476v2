@@ -39,7 +39,7 @@
                 <option value="In Progress">In Progress</option>
                 <option value="Late">Late</option>
                 <option value="Paused">Paused</option>
-                <option value="Canceled">Canceled</option>
+                <option value="Canceled" [disabled]="isCanceledDisabled()">Canceled</option>
             </select>
         </div>
     </fieldset>

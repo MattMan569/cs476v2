@@ -5,7 +5,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 
 // Abstract message service class
 abstract class MessageService {
-    abstract sendMessage(message: PrivateMessage): void;
+    abstract sendMessage(message: PrivateMessage): Promise<any>;
     abstract getAllMessagesByRecipientId(recipientId: string): Promise<PrivateMessage[]>;
     abstract getUserMessagesByRecipientId?(recipientId: string): Promise<PrivateMessage[]>;
     abstract getSystemMessagesByRecipientId?(recipientId: string): Promise<PrivateMessage[]>;
@@ -15,15 +15,35 @@ abstract class MessageService {
 class UserMessageService implements MessageService {
     constructor(private afa: AngularFireAuth, private afs: AngularFirestore) {}
 
-    sendMessage(message: PrivateMessage): void {
-        message.dateSent = Date.now();
-        message.messageType = 'User Message';
-        message.isRead = false;
+    sendMessage(message: PrivateMessage): Promise<any> {
+        return new Promise((resolve, reject) => {
+            // Check if the recipient exists
+            const userRef = this.afs.collection('users').ref;
+            userRef
+                .where('uid', '==', message.recipientId)
+                .get()
+                .then(result => {
+                    if (result.empty) {
+                        reject();
+                        return;
+                    }
 
-        // Add the message to the database
-        const messagesCollection = this.afs.collection('messages');
-        messagesCollection.add(message).then(ref => {
-            ref.update({ id: ref.id });
+                    message.dateSent = Date.now();
+                    message.messageType = 'User Message';
+                    message.isRead = false;
+
+                    // Add the message to the database
+                    const messagesCollection = this.afs.collection('messages');
+                    messagesCollection.add(message).then(ref => {
+                        ref.update({ id: ref.id });
+                    });
+
+                    resolve();
+                })
+                .catch(error => {
+                    console.log(error);
+                    reject();
+                });
         });
     }
 
@@ -78,18 +98,38 @@ class SystemMessageService implements MessageService {
     constructor(private afa: AngularFireAuth, private afs: AngularFirestore) {}
 
     // Augment the message then send it
-    sendMessage(message: PrivateMessage): void {
-        message.senderId = 'SYSTEM';
-        message.dateSent = Date.now();
-        message.subject = 'SYSTEM - Notification: ' + message.subject;
-        message.message = 'The following is an automatically generated message.\n\n' + message.message;
-        message.messageType = 'System Message';
-        message.isRead = false;
+    sendMessage(message: PrivateMessage): Promise<any> {
+        return new Promise((resolve, reject) => {
+            // Check if the recipient exists
+            const userRef = this.afs.collection('users').ref;
+            userRef
+                .where('uid', '==', message.recipientId)
+                .get()
+                .then(result => {
+                    if (result.empty) {
+                        reject();
+                        return;
+                    }
 
-        // Add the message to the database
-        const messagesCollection = this.afs.collection('messages');
-        messagesCollection.add(message).then(ref => {
-            ref.update({ id: ref.id });
+                    message.senderId = 'SYSTEM';
+                    message.dateSent = Date.now();
+                    message.subject = 'SYSTEM - Notification: ' + message.subject;
+                    message.message = 'The following is an automatically generated message.\n\n' + message.message;
+                    message.messageType = 'System Message';
+                    message.isRead = false;
+
+                    // Add the message to the database
+                    const messagesCollection = this.afs.collection('messages');
+                    messagesCollection.add(message).then(ref => {
+                        ref.update({ id: ref.id });
+                    });
+
+                    resolve();
+                })
+                .catch(error => {
+                    console.log(error);
+                    reject();
+                });
         });
     }
 

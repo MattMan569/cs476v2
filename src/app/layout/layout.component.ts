@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Subscription } from 'rxjs';
+import { MessageServiceFactory } from '../shared';
 
 @Component({
     selector: 'app-layout',
@@ -18,6 +19,11 @@ export class LayoutComponent implements OnInit {
     constructor(private afa: AngularFireAuth, private afs: AngularFirestore) {}
 
     ngOnInit() {
+        // const x = MessageServiceFactory.CreateMessageService('System Message', this.afa, this.afs);
+        // MessageServiceFactory.CreateMessageService('User Message', this.afa, this.afs).getUserMessagesByRecipientId('a');
+        // MessageServiceFactory.CreateMessageService('User Message', this.afa, this.afs).sendMessage('hello');
+        // MessageServiceFactory.CreateMessageService('System Message', this.afa, this.afs).sendMessage('hello');
+
         // Wait until the connection to the database services is established
         // before rendering the view.
         this.afaSub = this.afa.idToken.subscribe(() => {

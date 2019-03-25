@@ -1,0 +1,22 @@
+<div class="container p-0 mw-100">
+    <div class="row no-gutters">
+        <div class="col">
+            <button type="button" [routerLink]="'compose'" class="btn btn-lg btn-success mb-3 text-left">Compose</button>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col">
+            Subject
+        </div>
+        <div class="col">
+            From
+        </div>
+        <div class="col">
+            Date
+        </div>
+    </div>
+    <hr />
+    <ng-container *ngFor="let message of getMessages()">
+        <app-message-item [message]="message"></app-message-item>
+    </ng-container>
+</div>

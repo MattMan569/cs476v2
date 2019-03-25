@@ -1,0 +1,25 @@
+<div class="container p-0 mw-100">
+    <div class="row no-gutters mb-5">
+        <button type="button" [routerLink]="'..'" class="btn btn-lg btn-danger mb-3 text-left mr-3">Back</button>
+        <button type="button" [routerLink]="'./../compose'" class="btn btn-lg btn-success mb-3 text-left">Compose</button>
+    </div>
+    <ng-container *ngIf="getMessage()">
+        <strong>{{ getMessage()?.subject }}</strong>
+        <hr />
+        <div class="row">
+            <div class="col-auto">
+                From <br />
+                To <br />
+                Date <br />
+            </div>
+            <div class="col-auto">
+                {{ getUser(getMessage()?.senderId) }} <br />
+                {{ getUser(getMessage()?.recipientId) }} <br />
+                {{ getMessage()?.dateSent | date: 'medium' }} <br />
+            </div>
+        </div>
+        <div class="border border-primary rounded mt-5 p-5">
+            {{ getMessage()?.message }}
+        </div>
+    </ng-container>
+</div>

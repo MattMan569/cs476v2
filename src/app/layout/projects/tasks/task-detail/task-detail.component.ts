@@ -40,7 +40,7 @@ export class TaskDetailComponent implements OnInit {
     // Delete the task
     onDeleteTask(): void {
         // Confirm the selection
-        if (confirm('Are you sure you want to delete this project?\nThis action cannot be undone.')) {
+        if (confirm('Are you sure you want to delete this task?\nThis action cannot be undone.')) {
             this.task.then((task: Task) => {
                 // Delete the task
                 this.taskService.deleteTask(task).then(() => {

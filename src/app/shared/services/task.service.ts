@@ -113,5 +113,9 @@ export class TaskService {
         });
     }
 
+    deleteTask(task: Task): Promise<void> {
+        return this.tasksCollection.doc(task.id).delete();
+    }
+
     run(): void {}
 }

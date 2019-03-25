@@ -41,6 +41,10 @@ export class ProjectService {
         return this.projectsCollection.doc(project.id).update(project);
     }
 
+    deleteProject(project: Project): Promise<void> {
+        return this.projectsCollection.doc(project.id).delete();
+    }
+
     getProjectsSubject(): Subject<Project[]> {
         return this.projectsChanged;
     }

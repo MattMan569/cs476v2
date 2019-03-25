@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Task, TaskService, UserService } from 'src/app/shared';
 import { AngularFireAuth } from '@angular/fire/auth';
 
@@ -11,10 +11,12 @@ import { AngularFireAuth } from '@angular/fire/auth';
 export class TaskDetailComponent implements OnInit {
     private task: Promise<Task>;
     private canEdit = false;
+    private canDelete = false;
 
     constructor(
         private afa: AngularFireAuth,
         private route: ActivatedRoute,
+        private router: Router,
         private taskService: TaskService,
         private userService: UserService
     ) {}
@@ -28,11 +30,27 @@ export class TaskDetailComponent implements OnInit {
                 if (currentUser === task.assignedBy || currentUser === task.assignedTo) {
                     this.canEdit = true;
                 }
+                if (currentUser === task.assignedBy) {
+                    this.canDelete = true;
+                }
             });
         });
     }
 
-    getTask() {
+    // Delete the task
+    onDeleteTask(): void {
+        // Confirm the selection
+        if (confirm('Are you sure you want to delete this project?\nThis action cannot be undone.')) {
+            this.task.then((task: Task) => {
+                // Delete the task
+                this.taskService.deleteTask(task).then(() => {
+                    this.router.navigate(['..'], { relativeTo: this.route });
+                });
+            });
+        }
+    }
+
+    getTask(): Promise<Task> {
         return this.task;
     }
 
@@ -42,5 +60,9 @@ export class TaskDetailComponent implements OnInit {
 
     getCanEdit(): boolean {
         return this.canEdit;
+    }
+
+    getCanDelete(): boolean {
+        return this.canDelete;
     }
 }

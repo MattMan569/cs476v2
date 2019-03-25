@@ -14,7 +14,6 @@ export class ProjectDetailComponent implements OnInit {
     private canEdit: boolean;
 
     // Chart
-
     private projectTaskStatsData: number[] = [0, 0, 0, 0, 0];
     private projectTaskStatsLabels: statusTypes[] = ['Canceled', 'Complete', 'In Progress', 'Late', 'Paused'];
     private projectTaskStatsColors = [
@@ -29,7 +28,8 @@ export class ProjectDetailComponent implements OnInit {
         private projectService: ProjectService,
         private taskService: TaskService,
         private userService: UserService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private router: Router
     ) {}
 
     ngOnInit() {
@@ -61,6 +61,27 @@ export class ProjectDetailComponent implements OnInit {
                 this.renderChart = true;
             });
         });
+    }
+
+    // Delete the project and all of its tasks
+    onDeleteProject(): void {
+        // Confirm the selection
+        if (confirm('Are you sure you want to delete this project?\nThis action cannot be undone.')) {
+            // First delete all of this project's tasks
+            this.taskService
+                .getTasksByProjectId(this.project.id)
+                .then((tasks: Task[]) => {
+                    tasks.forEach((task: Task) => {
+                        this.taskService.deleteTask(task);
+                    });
+                })
+                // Then delete the project itself
+                .then(() => {
+                    this.projectService.deleteProject(this.project).then(() => {
+                        this.router.navigate(['..'], { relativeTo: this.route });
+                    });
+                });
+        }
     }
 
     getProject(): Project {

@@ -11,8 +11,7 @@ const routes: Routes = [
             { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule' },
             { path: 'projects', loadChildren: './projects/projects.module#ProjectsModule' },
             { path: 'chat', loadChildren: './chat/chat.module#ChatModule' },
-            { path: 'inbox', loadChildren: './messages/messages.module#MessagesModule' },
-            { path: 'calendar', loadChildren: './calendar/calendar.module#CalendarModule' }
+            { path: 'inbox', loadChildren: './messages/messages.module#MessagesModule' }
         ]
     }
 ];

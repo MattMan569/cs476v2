@@ -1,4 +1,4 @@
-import { statusTypes, priorityTypes } from './types';
+import { statusTypes, priorityTypes, messageServiceType } from './types';
 
 export interface User {
     uid: string;
@@ -36,4 +36,11 @@ export interface ChatMessage {
     senderId: string; // uid
     dateSent: number;
     message: string;
+}
+
+export interface PrivateMessage extends ChatMessage {
+    recipientId: string; // uid
+    isRead: boolean;
+    messageType: messageServiceType;
+    subject: string;
 }

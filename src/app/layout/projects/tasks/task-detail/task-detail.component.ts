@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Task, TaskService, UserService } from 'src/app/shared';
+import { Task, TaskService, UserService, ProjectService } from 'src/app/shared';
 import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({

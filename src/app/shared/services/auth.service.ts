@@ -42,7 +42,7 @@ export class AuthService {
                                 .getIdToken()
                                 .then((token: string) => {
                                     localStorage.setItem('userIdToken', token);
-                                    this.router.navigate(['/dashboard']);
+                                    this.router.navigate(['/projects']);
                                 })
                                 .catch(error => console.log(error));
                         });

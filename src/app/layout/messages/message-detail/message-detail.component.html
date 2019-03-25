@@ -18,8 +18,6 @@
                 {{ getMessage()?.dateSent | date: 'medium' }} <br />
             </div>
         </div>
-        <div class="border border-primary rounded mt-5 p-5">
-            {{ getMessage()?.message }}
-        </div>
+        <div class="border border-primary rounded mt-5 p-5" [innerHTML]="getMessage()?.message"></div>
     </ng-container>
 </div>

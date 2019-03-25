@@ -40,6 +40,10 @@ export class MessageDetailComponent implements OnInit {
     }
 
     getUser(uid: string): string {
-        return this.userService.getUserById(uid).displayName;
+        if (uid === 'SYSTEM') {
+            return uid;
+        } else {
+            return this.userService.getUserById(uid).displayName;
+        }
     }
 }

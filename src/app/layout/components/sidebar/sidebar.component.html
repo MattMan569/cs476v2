@@ -1,12 +1,16 @@
 <nav class="sidebar" [ngClass]="{ sidebarPushRight: isActive, collapsed: collapsed }">
     <div class="list-group">
-        <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
+        <!-- <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-dashboard"></i>&nbsp;
             <span>Dashboard</span>
-        </a>
+        </a> -->
         <a routerLink="/projects" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-clipboard"></i>&nbsp;
             <span>Projects</span>
+        </a>
+        <a routerLink="/inbox" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-envelope"></i>&nbsp;
+            <span>Messages</span>
         </a>
         <a routerLink="/chat" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-comments"></i>&nbsp;

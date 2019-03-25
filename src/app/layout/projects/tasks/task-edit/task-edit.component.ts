@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { TaskService, Task, UserService } from 'src/app/shared';
+import { TaskService, Task, UserService, MessageServiceFactory, ProjectService } from 'src/app/shared';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { NgbDatepicker } from '@ng-bootstrap/ng-bootstrap';
 
@@ -13,6 +13,7 @@ import { NgbDatepicker } from '@ng-bootstrap/ng-bootstrap';
 })
 export class TaskEditComponent implements OnInit {
     private taskForm: FormGroup;
+    private task: Task;
     private pid: string; // Project id
     private tid: string; // Task id
     private editMode = false;
@@ -23,6 +24,7 @@ export class TaskEditComponent implements OnInit {
         private afs: AngularFirestore,
         private afa: AngularFireAuth,
         private taskService: TaskService,
+        private projectService: ProjectService,
         private userService: UserService,
         private router: Router,
         private route: ActivatedRoute
@@ -38,6 +40,7 @@ export class TaskEditComponent implements OnInit {
 
         if (this.editMode) {
             this.taskService.getTaskById(this.tid).then((task: Task) => {
+                this.task = task;
                 if (task.assignedBy === this.afa.auth.currentUser.uid) {
                     this.isManager = true;
                 }
@@ -84,6 +87,21 @@ export class TaskEditComponent implements OnInit {
         newTask.dateDue = new Date(formDate).valueOf();
 
         if (this.editMode) {
+            if (newTask.status === 'Complete') {
+                // @ts-ignore Ignore the imcomplete instantiation, it is done by the service
+                const systemMessage: PrivateMessage = {
+                    message:
+                        'User ' +
+                        this.afa.auth.currentUser.displayName +
+                        ' has completed task:<br><span class="pl-5">' +
+                        newTask.description +
+                        '</span><br>In project: ' +
+                        this.projectService.getProjectById(this.pid).name,
+                    subject: 'Task Completion'
+                };
+                systemMessage.recipientId = this.task.assignedBy;
+                MessageServiceFactory.CreateMessageService('System Message', this.afa, this.afs).sendMessage(systemMessage);
+            }
             newTask.id = this.tid;
             this.taskService.updateTask(newTask).then(() => this.router.navigate(['..'], { relativeTo: this.route }));
             return;

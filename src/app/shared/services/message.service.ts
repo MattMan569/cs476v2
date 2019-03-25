@@ -114,7 +114,7 @@ class SystemMessageService implements MessageService {
                     message.senderId = 'SYSTEM';
                     message.dateSent = Date.now();
                     message.subject = 'SYSTEM - Notification: ' + message.subject;
-                    message.message = 'The following is an automatically generated message.\n\n' + message.message;
+                    message.message = 'The following is an automatically generated message.<br><br>' + message.message;
                     message.messageType = 'System Message';
                     message.isRead = false;
 

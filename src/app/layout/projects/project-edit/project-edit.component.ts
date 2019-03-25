@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbDatepicker } from '@ng-bootstrap/ng-bootstrap';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { Project, TaskService, Task, MessageServiceFactory, PrivateMessage } from 'src/app/shared';
+import { Project, TaskService, Task } from 'src/app/shared';
 import { ProjectService } from 'src/app/shared/services/project.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -21,7 +21,6 @@ export class ProjectEditComponent implements OnInit {
 
     constructor(
         private afa: AngularFireAuth,
-        private afs: AngularFirestore,
         private projectService: ProjectService,
         private taskService: TaskService,
         private router: Router,
@@ -106,11 +105,6 @@ export class ProjectEditComponent implements OnInit {
 
             // Update the project
             this.projectService.updateProject(newProject).then(() => {
-                if (newProject.status === 'Complete') {
-                    let systemMessage: PrivateMessage;
-                    // systemMessage.
-                    // MessageServiceFactory.CreateMessageService('System Message', this.afa, this.afs).sendMessage();
-                }
                 this.router.navigate(['..'], { relativeTo: this.route });
             });
 

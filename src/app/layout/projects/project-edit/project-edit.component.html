@@ -60,4 +60,5 @@
     <!-- Submit or navigate back -->
     <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
     <button type="submit" class="btn btn-success ml-3">{{ getSubmitButtonText() }}</button>
+    <span *ngIf="isFormInvalid()" class="help-block text-danger ml-3">The project is not valid!</span>
 </form>

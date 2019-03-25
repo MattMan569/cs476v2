@@ -18,6 +18,7 @@ export class ProjectEditComponent implements OnInit {
     private editMode = false;
     private completedDisabled = true;
     private canceledDisabled = true;
+    private submitAttempted = false;
 
     constructor(
         private afa: AngularFireAuth,
@@ -83,6 +84,12 @@ export class ProjectEditComponent implements OnInit {
     }
 
     onSubmit() {
+        // Only allow the submission of valid forms
+        if (!this.projectForm.valid) {
+            this.submitAttempted = true;
+            return;
+        }
+
         let newProject: Project;
         let formDate = '';
 
@@ -144,5 +151,20 @@ export class ProjectEditComponent implements OnInit {
 
     isCanceledDisabled(): boolean {
         return this.canceledDisabled;
+    }
+
+    isFormInvalid(): boolean {
+        if (this.submitAttempted) {
+            this.projectForm.controls.name.markAsTouched();
+            this.projectForm.controls.description.markAsTouched();
+            this.projectForm.controls.dateDue.markAsTouched();
+        }
+        if (
+            this.projectForm.get('name').touched &&
+            this.projectForm.get('description').touched &&
+            this.projectForm.get('dateDue').touched
+        ) {
+            return this.projectForm.invalid;
+        }
     }
 }

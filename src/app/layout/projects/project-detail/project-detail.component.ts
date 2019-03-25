@@ -22,6 +22,7 @@ export class ProjectDetailComponent implements OnInit {
         }
     ];
     private renderChart = false;
+    private hasTasks = false;
 
     constructor(
         private afa: AngularFireAuth,
@@ -45,6 +46,9 @@ export class ProjectDetailComponent implements OnInit {
             this.project = this.projectService.getProjectById(params.id);
             this.canEdit = this.project.manager === this.afa.auth.currentUser.uid;
             this.taskService.getTasksByProjectId(this.project.id).then((tasks: Task[]) => {
+                if (tasks.length !== 0) {
+                    this.hasTasks = true;
+                }
                 tasks.forEach((task: Task) => {
                     if (task.status === 'Canceled') {
                         this.projectTaskStatsData[ChartIndexes.Canceled]++;
@@ -121,6 +125,10 @@ export class ProjectDetailComponent implements OnInit {
 
     getRenderChart() {
         return this.renderChart;
+    }
+
+    getHasTasks(): boolean {
+        return this.hasTasks;
     }
 
     onProjectTaskStatsHover() {}

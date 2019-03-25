@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbDatepicker } from '@ng-bootstrap/ng-bootstrap';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { Project, TaskService, Task } from 'src/app/shared';
 import { ProjectService } from 'src/app/shared/services/project.service';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -20,7 +19,6 @@ export class ProjectEditComponent implements OnInit {
     private canceledDisabled = true;
 
     constructor(
-        private afs: AngularFirestore,
         private afa: AngularFireAuth,
         private projectService: ProjectService,
         private taskService: TaskService,
@@ -34,8 +32,11 @@ export class ProjectEditComponent implements OnInit {
             this.editMode = params.id != null;
             this.id = params.id;
 
+            // If the project id is found
             if (this.id) {
                 this.canceledDisabled = false;
+
+                // Get all tasks for this project
                 this.taskService.getTasksByProjectId(this.id).then((tasks: Task[]) => {
                     if (tasks.length !== 0) {
                         let allCompleted = true;
@@ -44,12 +45,14 @@ export class ProjectEditComponent implements OnInit {
                                 allCompleted = false;
                             }
                         });
+                        // Disable the completed status unless all tasks are complete
                         this.completedDisabled = !allCompleted;
                     }
                 });
             }
         });
 
+        // If the form is in edit mode for an existing project
         if (this.editMode) {
             // Setup a prepopulated form
             const selectedProject = this.projectService.getProjectById(this.id);
@@ -57,7 +60,6 @@ export class ProjectEditComponent implements OnInit {
             this.projectForm = new FormGroup({
                 name: new FormControl(selectedProject.name, Validators.required),
                 description: new FormControl(selectedProject.description, Validators.required),
-                // dateDue: new FormControl(selectedProject.dateDue, Validators.required),
                 dateDue: new FormControl({ year: date.getFullYear(), month: date.getMonth(), day: date.getDate() }, Validators.required),
                 status: new FormControl(selectedProject.status, Validators.required),
                 priority: new FormControl(selectedProject.priority, Validators.required)
@@ -92,14 +94,19 @@ export class ProjectEditComponent implements OnInit {
         formDate += this.projectForm.value.dateDue.day;
         newProject.dateDue = new Date(formDate).valueOf();
 
+        // If a project is being edited
         if (this.editMode) {
+            // Get existing data
             newProject.id = this.id;
             if (!newProject.dateDue) {
                 newProject.dateDue = this.projectService.getProjectById(newProject.id).dateDue;
             }
+
+            // Update the project
             this.projectService.updateProject(newProject).then(() => {
                 this.router.navigate(['..'], { relativeTo: this.route });
             });
+
             return;
         }
 
@@ -110,7 +117,6 @@ export class ProjectEditComponent implements OnInit {
 
         // Add the document
         this.projectService.addProject(newProject);
-
         this.router.navigate(['..'], { relativeTo: this.route });
     }
 

@@ -3,7 +3,21 @@
 <button *ngIf="getCanEdit()" type="button" class="btn btn-lg btn-warning text-white mb-3 mr-3" (click)="onDeleteProject()">
     Delete Project
 </button>
-<button *ngIf="getCanEdit()" type="button" [routerLink]="'addTask'" class="btn btn-lg btn-success mb-3">Add Task</button>
+<div
+    class="d-inline-block"
+    [ngbTooltip]="isAddTaskDisabled() ? 'You cannot add tasks to completed or canceled projects.' : null"
+    placement="bottom"
+>
+    <button
+        *ngIf="getCanEdit()"
+        type="button"
+        [routerLink]="'addTask'"
+        [disabled]="isAddTaskDisabled()"
+        class="btn btn-lg btn-success mb-3"
+    >
+        Add Task
+    </button>
+</div>
 
 <div class="container mw-100">
     <div class="row">

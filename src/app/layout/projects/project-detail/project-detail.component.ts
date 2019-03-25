@@ -84,6 +84,15 @@ export class ProjectDetailComponent implements OnInit {
         }
     }
 
+    // Cannot add tasks to compelte or canceled projects
+    isAddTaskDisabled(): boolean {
+        if (this.project.status === 'Canceled' || this.project.status === 'Complete') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     getProject(): Project {
         return this.project;
     }

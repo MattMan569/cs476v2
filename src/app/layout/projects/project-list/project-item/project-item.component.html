@@ -11,7 +11,12 @@
                     [max]="100"
                 ></ngb-progressbar>
             </div>
-            <div class="card-header">Project: {{ getProject().name }}<br />Manager: {{ getManager().displayName }}</div>
+            <div class="card-header">
+                <div class="row no-gutters">
+                    <div class="col">Project: {{ getProject().name }}<br />Manager: {{ getManager().displayName }}</div>
+                    <div class="col">Priority: {{ getProject().priority }}<br />Due Date: {{ getProject().dateDue | date: 'short' }}</div>
+                </div>
+            </div>
             <div class="card-body">
                 <h4 class="card-title">{{ getProject().status }}</h4>
                 <p class="card-text">

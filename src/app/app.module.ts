@@ -16,6 +16,8 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireFunctionsModule } from '@angular/fire/functions';
 import { environment } from '../environments/environment';
+import { SchedulerModule } from '@progress/kendo-angular-scheduler';
+
 
 @NgModule({
     imports: [
@@ -29,7 +31,8 @@ import { environment } from '../environments/environment';
         AngularFireStorageModule, // Firebase storage
         AngularFireFunctionsModule, // Firebase functions
         LanguageTranslationModule,
-        AppRoutingModule
+        AppRoutingModule,
+        SchedulerModule
     ],
     declarations: [AppComponent],
     providers: [AuthGuard],

@@ -1,3 +1,22 @@
-<p>
-    project-list works!
-</p>
+<div class="container p-0 mw-100">
+    <div class="row no-gutters">
+        <div class="col">
+            <button type="button" [routerLink]="'new'" class="btn btn-lg btn-success mb-3 text-left">New Project</button>
+        </div>
+        <div class="col text-right">
+            <select [(ngModel)]="filter" class="dropdown">
+                <option *ngFor="let filter of getFilters()" [ngValue]="filter">{{ filter }}</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <ng-container *ngFor="let project of getProjects()">
+        <app-project-item
+            *ngIf="isDisplayed(project)"
+            [project]="project"
+            [manager]="getProjectManager(project.manager)"
+        ></app-project-item>
+    </ng-container>
+</div>

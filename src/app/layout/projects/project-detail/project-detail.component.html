@@ -1,0 +1,100 @@
+<button type="button" [routerLink]="'..'" class="btn btn-lg btn-danger mb-3 mr-3">Cancel</button>
+<button *ngIf="getCanEdit()" type="button" [routerLink]="'edit'" class="btn btn-lg btn-primary mb-3 mr-3">Edit Project</button>
+<button *ngIf="getCanEdit()" type="button" class="btn btn-lg btn-warning text-white mb-3 mr-3" (click)="onDeleteProject()">
+    Delete Project
+</button>
+<div
+    class="d-inline-block"
+    [ngbTooltip]="isAddTaskDisabled() ? 'You cannot add tasks to completed or canceled projects.' : null"
+    placement="bottom"
+>
+    <button
+        *ngIf="getCanEdit()"
+        type="button"
+        [routerLink]="'addTask'"
+        [disabled]="isAddTaskDisabled()"
+        class="btn btn-lg btn-success mb-3"
+    >
+        Add Task
+    </button>
+</div>
+
+<div class="container mw-100">
+    <div class="row">
+        <div class="col">
+            <div class="container p-0">
+                <div class="row no-gutters">
+                    <div class="col-3">Name:</div>
+                    <div class="col-9">
+                        {{ getProject().name }}
+                    </div>
+                </div>
+                <div class="row no-gutters">
+                    <div class="col-3">Description:</div>
+                    <div class="col-9">
+                        {{ getProject().description }}
+                    </div>
+                </div>
+                <div class="row no-gutters">
+                    <div class="col-3">Project Manager:</div>
+                    <div class="col-9">
+                        {{ getManager(getProject().manager) }}
+                    </div>
+                </div>
+                <div class="row no-gutters">
+                    <div class="col-3">Status:</div>
+                    <div class="col-9">
+                        {{ getProject().status }}
+                    </div>
+                </div>
+                <div class="row no-gutters">
+                    <div class="col-3">Priority:</div>
+                    <div class="col-9">
+                        {{ getProject().priority }}
+                    </div>
+                </div>
+                <div class="row no-gutters">
+                    <div class="col-3">Creation Date:</div>
+                    <div class="col-9">
+                        {{ getProject().dateCreated | date: 'medium' }}
+                    </div>
+                </div>
+                <div class="row no-gutters">
+                    <div class="col-3">Due Date:</div>
+                    <div class="col-9">
+                        {{ getProject().dateDue | date: 'mediumDate' }}
+                    </div>
+                </div>
+                <div class="row no-gutters" *ngIf="getProject().dateCompleted">
+                    <div class="col-3">Completion Date:</div>
+                    <div class="col-9">
+                        {{ getProject().dateCompleted | date: 'mediumDate' }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card" *ngIf="getHasTasks()">
+                <div class="card-header">Project's Task Statistics</div>
+                <div class="card-body">
+                    <canvas
+                        *ngIf="getRenderChart()"
+                        baseChart
+                        height="150px"
+                        [data]="getProjectTaskStatsData()"
+                        [labels]="getProjectTaskStatsLabels()"
+                        [colors]="getProjectTaskStatsColors()"
+                        [chartType]="'pie'"
+                        (chartHover)="onProjectTaskStatsHover()"
+                        (chartClick)="onProjectTaskStatsClick()"
+                    ></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- List of tasks with a projectId of this project's id -->
+<div class="row mt-3">
+    <app-task-list [projectId]="getProject().id"></app-task-list>
+</div>

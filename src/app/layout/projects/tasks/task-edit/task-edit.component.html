@@ -1,0 +1,68 @@
+<form *ngIf="getForm()" [formGroup]="getForm()" (ngSubmit)="onSubmit()">
+    <!-- Description -->
+    <fieldset class="form-group" [disabled]="managerFieldsDisabled()">
+        <label for="description">Task Description</label>
+        <!-- <input type="text" id="description" formControlName="description" class="form-control" /> -->
+        <textarea id="description" formControlName="description" rows="4" class="form-control"></textarea>
+    </fieldset>
+
+    <!-- Due Date -->
+    <fieldset class="form-group no-gutters" [disabled]="managerFieldsDisabled()">
+        <label for="dateDue">Task Due Date</label>
+        <div class="input-group datpicker-input col-3">
+            <input
+                class="form-control"
+                placeholder="yyyy-mm-dd"
+                id="dateDue"
+                formControlName="dateDue"
+                ngbDatepicker
+                #date="ngbDatepicker"
+            />
+            <button class="input-group-addon" (click)="date.toggle()" type="button">
+                <span class="fa fa-calendar"></span>
+            </button>
+        </div>
+    </fieldset>
+
+    <!-- Task Weight -->
+    <fieldset class="form-group no-gutters" [disabled]="managerFieldsDisabled()">
+        <label for="weight">Task Weight </label>
+        &nbsp;
+        <i
+            class="fa fa-question-circle-o"
+            ngbTooltip="A task's weight is used to calculate the project's completion progress as a weighted average."
+            placement="right"
+        ></i>
+        <div class="col-1">
+            <input type="number" min="0" class="form-control" id="weight" formControlName="weight" />
+        </div>
+    </fieldset>
+
+    <!-- Status -->
+    <fieldset class="form-group no-gutters">
+        <div class="col-3">
+            <label for="status">Initial Status</label>
+            <select id="status" formControlName="status" class="form-control">
+                <option value="Complete">Complete</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Late">Late</option>
+                <option value="Paused">Paused</option>
+                <option value="Canceled">Canceled</option>
+            </select>
+        </div>
+    </fieldset>
+
+    <!-- Assignee -->
+    <fieldset class="form-group no-gutters" [disabled]="managerFieldsDisabled()">
+        <label for="assignedTo">Assignee</label>
+        <div class="col-3">
+            <input type="text" class="form-control" id="assignedTo" formControlName="assignedTo" />
+        </div>
+        <span *ngIf="getIsInvalidUser()" class="help-block text-danger">User not found!</span>
+    </fieldset>
+
+    <!-- Submit or navigate back -->
+    <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
+    <button type="submit" class="btn btn-success ml-3">{{ getSubmitButtonText() }}</button>
+    <span *ngIf="isFormInvalid()" class="help-block text-danger ml-3">The task is not valid!</span>
+</form>

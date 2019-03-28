@@ -1,0 +1,61 @@
+<button type="button" [routerLink]="'..'" class="btn btn-lg btn-danger mb-3 mr-3">Cancel</button>
+<button *ngIf="getCanEdit()" type="button" [routerLink]="'edit'" class="btn btn-lg btn-primary mb-3 mr-3">Edit Task</button>
+<button *ngIf="getCanDelete()" type="button" class="btn btn-lg btn-warning text-white mb-3 mr-3" (click)="onDeleteTask()">
+    Delete Task
+</button>
+
+<!-- async?.property - Safe navigation -->
+<div class="container p-0 mw-100">
+    <div class="row no-gutters">
+        <div class="col-2">Description:</div>
+        <div class="col-10">
+            {{ (getTask() | async)?.description }}
+        </div>
+    </div>
+    <div class="row no-gutters">
+        <div class="col-2">Assigned By:</div>
+        <div class="col-10">
+            <div class="d-inline" *ngIf="(getTask() | async)?.assignedBy as ab">
+                {{ getUser(ab) }}
+            </div>
+        </div>
+    </div>
+    <div class="row no-gutters">
+        <div class="col-2">Assigned To:</div>
+        <div class="col-10">
+            <div class="d-inline" *ngIf="(getTask() | async)?.assignedTo as at">
+                {{ getUser(at) }}
+            </div>
+        </div>
+    </div>
+    <div class="row no-gutters">
+        <div class="col-2">Status:</div>
+        <div class="col-10">
+            {{ (getTask() | async)?.status }}
+        </div>
+    </div>
+    <div class="row no-gutters">
+        <div class="col-2">Task Weight:</div>
+        <div class="col-10">
+            {{ (getTask() | async)?.weight }}
+        </div>
+    </div>
+    <div class="row no-gutters">
+        <div class="col-2">Creation Date:</div>
+        <div class="col-10">
+            {{ (getTask() | async)?.dateCreated | date: 'medium' }}
+        </div>
+    </div>
+    <div class="row no-gutters">
+        <div class="col-2">Due Date:</div>
+        <div class="col-10">
+            {{ (getTask() | async)?.dateDue | date: 'mediumDate' }}
+        </div>
+    </div>
+    <div class="row no-gutters" *ngIf="(getTask() | async)?.dateCompleted">
+        <div class="col-2">Completion Date:</div>
+        <div class="col-10">
+            {{ (getTask() | async)?.dateCompleted }}
+        </div>
+    </div>
+</div>

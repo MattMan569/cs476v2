@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
+import { AuthService } from 'src/app/shared';
+import { AngularFireAuth } from '@angular/fire/auth';
+
 @Component({
     selector: 'app-header',
     templateUrl: './header.component.html',
@@ -10,14 +13,14 @@ import { TranslateService } from '@ngx-translate/core';
 export class HeaderComponent implements OnInit {
     public pushRightClass: string;
 
-    constructor(private translate: TranslateService, public router: Router) {
-
+    constructor(
+        private translate: TranslateService,
+        public router: Router,
+        private authService: AuthService,
+        private afa: AngularFireAuth
+    ) {
         this.router.events.subscribe(val => {
-            if (
-                val instanceof NavigationEnd &&
-                window.innerWidth <= 992 &&
-                this.isToggled()
-            ) {
+            if (val instanceof NavigationEnd && window.innerWidth <= 992 && this.isToggled()) {
                 this.toggleSidebar();
             }
         });
@@ -43,10 +46,19 @@ export class HeaderComponent implements OnInit {
     }
 
     onLoggedout() {
-        localStorage.removeItem('isLoggedin');
+        // localStorage.removeItem('isLoggedin');
+        this.authService.signOutUser();
     }
 
     changeLang(language: string) {
         this.translate.use(language);
+    }
+
+    getUserEmail() {
+        if (this.afa.auth.currentUser) {
+            return this.afa.auth.currentUser.email;
+        }
+
+        return '';
     }
 }

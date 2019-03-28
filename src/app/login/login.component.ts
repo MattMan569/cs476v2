@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { routerTransition } from '../router.animations';
+import { NgForm } from '@angular/forms';
+import { AuthService } from '../shared';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
     selector: 'app-login',
@@ -9,13 +12,17 @@ import { routerTransition } from '../router.animations';
     animations: [routerTransition()]
 })
 export class LoginComponent implements OnInit {
-    constructor(
-      public router: Router
-    ) {}
+    constructor(private router: Router, private authService: AuthService, private afa: AngularFireAuth) {}
 
-    ngOnInit() {}
+    ngOnInit() {
+        if (localStorage.getItem('userIdToken')) {
+            this.router.navigate(['/dashboard']);
+        }
+    }
 
-    onLoggedin() {
-        localStorage.setItem('isLoggedin', 'true');
+    onLogIn(form: NgForm) {
+        const email = form.value.email;
+        const password = form.value.password;
+        this.authService.signInUser(email, password);
     }
 }

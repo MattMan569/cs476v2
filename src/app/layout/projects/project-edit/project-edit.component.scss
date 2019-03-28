@@ -1,3 +1,15 @@
 form {
     padding-bottom: 300px;
 }
+
+[disabled] {
+    background-color: lightgray;
+}
+
+// Display an red box around invalid elements
+input,
+textarea {
+    &.ng-invalid.ng-touched {
+        border: 1px solid red;
+    }
+}

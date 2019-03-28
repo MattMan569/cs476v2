@@ -1,0 +1,14 @@
+<a [routerLink]="getMessage().id">
+    <div class="row">
+        <div class="col">
+            {{ getMessage().subject }}
+        </div>
+        <div class="col">
+            {{ getSender() }}
+        </div>
+        <div class="col">
+            {{ getMessage().dateSent | date: 'medium' }}
+        </div>
+    </div>
+</a>
+<hr />

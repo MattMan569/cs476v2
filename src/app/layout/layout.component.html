@@ -1,5 +1,8 @@
 <app-header></app-header>
 <app-sidebar (collapsedEvent)="receiveCollapsed($event)"></app-sidebar>
-<section class="main-container" [ngClass]="{collapsed: collapedSideBar}">
-    <router-outlet></router-outlet>
+<section class="main-container" [ngClass]="{ collapsed: collapedSideBar }">
+    <!-- Only render when the services are ready -->
+    <div *ngIf="(isServicesLoaded() | async)">
+        <router-outlet></router-outlet>
+    </div>
 </section>

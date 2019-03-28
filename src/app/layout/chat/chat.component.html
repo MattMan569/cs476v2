@@ -1,0 +1,17 @@
+<form [formGroup]="getForm()" (ngSubmit)="onSubmit()" autocomplete="off">
+    <!-- Chat message -->
+    <fieldset class="form-group">
+        <input type="text" id="message" formControlName="message" class="form-control" />
+    </fieldset>
+</form>
+
+<div class="container p-0" *ngFor="let message of getChatMessages()">
+    <div class="row rounded m-1 p-2 w-75" [ngClass]="getClass(message)">
+        <div class="col-2">{{ getDisplayName(message.senderId) }}</div>
+        <div class="col-8">
+            <span>{{ message.message }}</span>
+        </div>
+        <!-- <div class="col-2 text-right">{{ message.dateSent | date: 'short' }}</div> -->
+        <div class="col-2 text-right">{{ getDateSent(message) }}</div>
+    </div>
+</div>
